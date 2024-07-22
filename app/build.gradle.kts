@@ -28,7 +28,7 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(project(":richtext"))
+    implementation(projects.richtext)
     testImplementation(libs.junit)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.recyclerview)
