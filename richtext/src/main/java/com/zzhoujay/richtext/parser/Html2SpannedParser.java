@@ -1,5 +1,7 @@
 package com.zzhoujay.richtext.parser;
 
+import android.annotation.SuppressLint;
+import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -32,6 +34,7 @@ public class Html2SpannedParser implements SpannedParser {
         this.tagHandler = tagHandler;
     }
 
+    @SuppressLint({"ObsoleteSdkInt", "DEPRECATION"})
     @Override
     public Spanned parse(String source) {
         if (Z_FROM_HTML_METHOD != null) {
@@ -41,6 +44,10 @@ public class Html2SpannedParser implements SpannedParser {
                 Log.d(TAG, "Z_FROM_HTML_METHOD invoke failure", e);
             }
         }
-        return Html.fromHtml(source, null, tagHandler);
+        if (Build.VERSION.SDK_INT >= 24) {
+            return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY, null, tagHandler);
+        } else {
+            return Html.fromHtml(source, null, tagHandler);
+        }
     }
 }

@@ -15,8 +15,7 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-//    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         mavenCentral()
         google {
@@ -27,10 +26,39 @@ dependencyResolutionManagement {
         }
         maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
         maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
+        maven { setUrl("https://repo.spring.io/plugins-release/")
+            content {
+                includeGroupByRegex("com.zzhoujay.*")
+            }
+        }
         maven {
             setUrl("https://jitpack.io")
             content {
                 includeGroupByRegex("com.github.*")
+            }
+        }
+        maven {
+            val properties = java.util.Properties().apply {
+                runCatching { rootProject.projectDir.resolve("local.properties") }
+                    .getOrNull()
+                    .takeIf { it?.exists() ?: false }
+                    ?.reader()
+                    ?.use(::load)
+            }
+            val environment: Map<String, String?> = System.getenv()
+            extra["githubToken"] = properties["github.token"] as? String
+                ?: environment["GITHUB_TOKEN"] ?: ""
+
+            url = uri("https://maven.pkg.github.com/vickyleu/Html")
+            credentials {
+                username = "vickyleu"
+                password = extra["githubToken"]?.toString()
+            }
+            content {
+                excludeGroupByRegex("com.finogeeks.*")
+                excludeGroupByRegex("org.jogamp.*")
+                excludeGroupByRegex("org.jetbrains.compose.*")
+                excludeGroupByRegex("(?!com|cn).github.(?!vickyleu).*")
             }
         }
     }

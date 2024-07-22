@@ -1,6 +1,7 @@
 package zhou.demo;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
@@ -8,7 +9,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zzhoujay.html.Html;
 import com.zzhoujay.richtext.RichText;
+import com.zzhoujay.richtext.RichType;
 import com.zzhoujay.richtext.callback.OnUrlClickListener;
 
 //import com.zzhoujay.okhttpimagedownloader.OkHttpImageDownloader;
@@ -152,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         RichText.debugMode = true;
 
         final TextView textView = findViewById(R.id.text);
-
+        textView.setBackgroundColor(Color.GRAY);
         String test_text_2 = "<B>Start</B> <img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' />" +
                 "<img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' />" +
                 "<img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' />" +
@@ -160,7 +163,10 @@ public class MainActivity extends AppCompatActivity {
                 "<img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><B>End</B>";
 
 
-        RichText.from(html)
+        RichText.from("<html><body><p style=\"background-color:rgba(255,0,0,1);\">你们好</p><p style=\"background-color:rgba(255,0,0,1);\">123312n</><p style=\"background-color:rgba(255,0,0,1);\">5678</></body></>")
+                .resetSize(true)
+                .sync(false)
+                .type(RichType.html)
                 .urlClick(new OnUrlClickListener() {
                     @Override
                     public boolean urlClicked(String url) {

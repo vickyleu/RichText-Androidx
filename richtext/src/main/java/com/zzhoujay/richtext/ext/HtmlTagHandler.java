@@ -4,11 +4,14 @@ import android.graphics.Color;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.zzhoujay.markdown.style.CodeSpan;
 import com.zzhoujay.markdown.style.MarkDownBulletSpan;
 
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.XMLReader;
 
 import java.lang.ref.SoftReference;
@@ -47,12 +50,14 @@ public class HtmlTagHandler implements Html.TagHandler {
             } else {
                 len = stack.pop();
             }
+
             reallyHandler(len, output.length(), tag.toLowerCase(), output, xmlReader);
         }
     }
 
     @SuppressWarnings("unused")
     private void startTag(String tag, Editable out, XMLReader reader) {
+        Log.w("startTag","=="+out.toString()+"==");
         switch (tag.toLowerCase()) {
             case "ul":
                 list.push(true);
@@ -70,8 +75,24 @@ public class HtmlTagHandler implements Html.TagHandler {
     @SuppressWarnings("unused")
     private void reallyHandler(int start, int end, String tag, Editable out, XMLReader reader) {
         switch (tag.toLowerCase()) {
+            case "body":
+                Log.wtf("subSequence","=="+out.charAt(end-1)+"==");
+                if(out.length()>2 &&
+                        start>=0 && end>start &&
+                        out.charAt(end-1) == '\n'){
+                    try {
+                        Log.wtf("handleTag","tag="+tag+out.toString()+"==="+"=="+"start:"+start+" end:"+end);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    out.delete(end-1,end);
+                    if(out.charAt(end-2) == '\n'){
+                        out.delete(end-2,end-1);
+                    }
+                }
+                break;
             case "code":
-                CodeSpan cs = new CodeSpan(code_color);
+                CodeSpan cs = new CodeSpan(code_color,Color.BLACK);
                 out.setSpan(cs, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 break;
             case "ol":
@@ -94,7 +115,7 @@ public class HtmlTagHandler implements Html.TagHandler {
                 if (textView == null) {
                     return;
                 }
-                MarkDownBulletSpan bulletSpan = new MarkDownBulletSpan(list.size() - 1, h1_color, i, textView);
+                MarkDownBulletSpan bulletSpan = new MarkDownBulletSpan(list.size() - 1, h1_color, i);//, textView);
                 out.setSpan(bulletSpan, start, out.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 break;
         }

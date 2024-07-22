@@ -9,6 +9,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.zzhoujay.richtext.cache.BitmapPool;
@@ -258,6 +259,7 @@ public class RichText implements ImageGetterWrapper, ImageLoadNotify {
         String source = config.source;
 
         Spanned spanned = spannedParser.parse(source);
+        Log.wtf("parseRichText","=="+spanned+"==");
         if (spanned instanceof SpannableStringBuilder) {
             spannableStringBuilder = (SpannableStringBuilder) spanned;
         } else {
