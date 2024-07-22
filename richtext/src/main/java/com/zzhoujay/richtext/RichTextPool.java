@@ -1,8 +1,8 @@
 package com.zzhoujay.richtext;
 
-import androidx.collection.LruCache;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.util.LruCache;
 
 import com.zzhoujay.richtext.ext.Debug;
 import com.zzhoujay.richtext.ext.MD5;

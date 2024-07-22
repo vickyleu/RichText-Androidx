@@ -6,9 +6,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import androidx.annotation.ColorInt;
-import androidx.core.util.Pair;
+import android.util.Pair;
 import android.widget.TextView;
+
+import androidx.annotation.ColorInt;
 
 import com.zzhoujay.richtext.callback.Callback;
 import com.zzhoujay.richtext.callback.DrawableGetter;

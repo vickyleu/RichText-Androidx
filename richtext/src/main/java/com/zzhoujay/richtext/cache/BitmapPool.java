@@ -1,7 +1,7 @@
 package com.zzhoujay.richtext.cache;
 
 import android.graphics.Bitmap;
-import androidx.collection.LruCache;
+import android.util.LruCache;
 
 import com.jakewharton.disklrucache.DiskLruCache;
 import com.zzhoujay.richtext.drawable.DrawableSizeHolder;
