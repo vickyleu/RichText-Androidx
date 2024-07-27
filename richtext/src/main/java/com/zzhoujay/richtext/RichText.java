@@ -3,7 +3,6 @@ package com.zzhoujay.richtext;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import androidx.annotation.NonNull;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -11,6 +10,8 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.zzhoujay.richtext.cache.BitmapPool;
 import com.zzhoujay.richtext.callback.ImageLoadNotify;
@@ -126,7 +127,7 @@ public class RichText implements ImageGetterWrapper, ImageLoadNotify {
         if (config.richType == RichType.markdown) {
             spannedParser = new Markdown2SpannedParser(textView);
         } else {
-            spannedParser = new Html2SpannedParser(new HtmlTagHandler(textView));
+            spannedParser = new Html2SpannedParser(new HtmlTagHandler(textView),config.customTagHandlers);
         }
         if (config.clickable > 0) {
             textView.setMovementMethod(new LongClickableLinkMovementMethod());
@@ -259,7 +260,7 @@ public class RichText implements ImageGetterWrapper, ImageLoadNotify {
         String source = config.source;
 
         Spanned spanned = spannedParser.parse(source);
-        Log.wtf("parseRichText","=="+spanned+"==");
+        Log.wtf("parseRichText", "==" + spanned + "==");
         if (spanned instanceof SpannableStringBuilder) {
             spannableStringBuilder = (SpannableStringBuilder) spanned;
         } else {

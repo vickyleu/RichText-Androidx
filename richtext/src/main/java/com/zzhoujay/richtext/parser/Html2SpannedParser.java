@@ -6,7 +6,10 @@ import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
 
+import com.zzhoujay.html.CustomTagHandler;
+
 import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * Created by zhou on 16-7-27.
@@ -29,9 +32,11 @@ public class Html2SpannedParser implements SpannedParser {
     }
 
     private Html.TagHandler tagHandler;
+    private List<CustomTagHandler> customTagHandlers;
 
-    public Html2SpannedParser(Html.TagHandler tagHandler) {
+    public Html2SpannedParser(Html.TagHandler tagHandler, List<CustomTagHandler> customTagHandlers) {
         this.tagHandler = tagHandler;
+        this.customTagHandlers = customTagHandlers;
     }
 
     @SuppressLint({"ObsoleteSdkInt", "DEPRECATION"})
@@ -39,7 +44,7 @@ public class Html2SpannedParser implements SpannedParser {
     public Spanned parse(String source) {
         if (Z_FROM_HTML_METHOD != null) {
             try {
-                return (Spanned) Z_FROM_HTML_METHOD.invoke(null, source, null, tagHandler);
+                return (Spanned) Z_FROM_HTML_METHOD.invoke(null, source, null, tagHandler,customTagHandlers);
             } catch (Exception e) {
                 Log.d(TAG, "Z_FROM_HTML_METHOD invoke failure", e);
             }

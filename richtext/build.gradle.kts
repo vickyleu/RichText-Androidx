@@ -28,6 +28,8 @@ android {
 }
 
 dependencies {
+//    implementation(libs.html)
+    implementation(projects.html.htmlSpanner)
     implementation(libs.markdown)
     implementation(libs.disklrucache)
     implementation(libs.androidx.annotation)

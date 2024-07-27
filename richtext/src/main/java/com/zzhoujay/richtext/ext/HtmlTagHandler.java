@@ -10,11 +10,10 @@ import android.widget.TextView;
 import com.zzhoujay.markdown.style.CodeSpan;
 import com.zzhoujay.markdown.style.MarkDownBulletSpan;
 
-import org.xml.sax.SAXNotRecognizedException;
-import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.XMLReader;
 
 import java.lang.ref.SoftReference;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -44,6 +43,7 @@ public class HtmlTagHandler implements Html.TagHandler {
             startTag(tag, output, xmlReader);
             stack.push(output.length());
         } else {
+            Log.wtf("handleTag","tag.toLowerCase()"+tag.toLowerCase());
             int len;
             if (stack.isEmpty()) {
                 len = 0;

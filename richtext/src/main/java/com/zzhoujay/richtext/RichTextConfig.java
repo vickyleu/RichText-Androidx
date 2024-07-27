@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 
+import com.zzhoujay.html.CustomTagHandler;
 import com.zzhoujay.richtext.callback.Callback;
 import com.zzhoujay.richtext.callback.DrawableGetter;
 import com.zzhoujay.richtext.callback.ImageFixCallback;
@@ -26,7 +27,9 @@ import com.zzhoujay.richtext.ig.DefaultImageGetter;
 import com.zzhoujay.richtext.ig.ImageDownloader;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by zhou on 2016/12/3.
@@ -59,6 +62,7 @@ public final class RichTextConfig {
     public final boolean singleLoad;
     public final boolean syncParse;
     public final ImageDownloader imageDownloader;// 图片加载器
+    public final List<CustomTagHandler> customTagHandlers;// 自定义标签处理器
     public final DrawableGetter placeHolderDrawableGetter, errorImageDrawableGetter;
 
 
@@ -90,7 +94,7 @@ public final class RichTextConfig {
                 config.onUrlClickListener, config.onImageLongClickListener, config.onUrlLongClickListener,
                 config.imageGetter, config.callback, config.autoPlay, config.scaleType, config.width,
                 config.height, config.borderHolder, config.singleLoad, config.syncParse, config.imageDownloader, config.placeHolderDrawableGetter,
-                config.errorImageDrawableGetter);
+                config.errorImageDrawableGetter, config.customTagHandlers);
     }
 
     private RichTextConfig(String source, RichType richType, boolean autoFix, boolean resetSize, CacheType cacheType,
@@ -99,7 +103,8 @@ public final class RichTextConfig {
                            OnImageLongClickListener onImageLongClickListener, OnUrlLongClickListener onUrlLongClickListener,
                            ImageGetter imageGetter, Callback callback, boolean autoPlay, ImageHolder.ScaleType scaleType,
                            int width, int height, DrawableBorderHolder borderHolder, boolean singleLoad, boolean syncParse,
-                           ImageDownloader imageDownloader, DrawableGetter placeHolderDrawableGetter, DrawableGetter errorImageDrawableGetter) {
+                           ImageDownloader imageDownloader, DrawableGetter placeHolderDrawableGetter, DrawableGetter errorImageDrawableGetter,
+                           List<CustomTagHandler> customTagHandlers) {
         this.source = source;
         this.richType = richType;
         this.autoFix = autoFix;
@@ -122,6 +127,7 @@ public final class RichTextConfig {
         this.singleLoad = singleLoad;
         this.syncParse = syncParse;
         this.imageDownloader = imageDownloader;
+        this.customTagHandlers = customTagHandlers;
         this.placeHolderDrawableGetter = placeHolderDrawableGetter;
         this.errorImageDrawableGetter = errorImageDrawableGetter;
         if (clickable == 0) {
@@ -148,6 +154,7 @@ public final class RichTextConfig {
         result = 31 * result + (noImage ? 1 : 0);
         result = 31 * result + clickable;
         result = 31 * result + borderHolder.hashCode();
+        result = 31 * result + customTagHandlers.hashCode();
         return result;
     }
 
@@ -297,6 +304,13 @@ public final class RichTextConfig {
         @SuppressWarnings("WeakerAccess")
         public RichTextConfigBuild type(RichType richType) {
             this.richType = richType;
+            return this;
+        }
+
+        private ArrayList<CustomTagHandler> customTagHandlers = new ArrayList<>();
+
+        public RichTextConfigBuild customTagParser(CustomTagHandler tagHandler) {
+            this.customTagHandlers.add(tagHandler);
             return this;
         }
 
@@ -525,7 +539,7 @@ public final class RichTextConfig {
             @Override
             public Drawable getDrawable(ImageHolder holder, RichTextConfig config, TextView textView) {
                 ColorDrawable drawable = new ColorDrawable(Color.LTGRAY);
-                int width = textView.getWidth() ;
+                int width = textView.getWidth();
                 drawable.setBounds(0, 0, width, width / 2);
                 HANDLER.obtainMessage(SET_BOUNDS, Pair.create(drawable, textView)).sendToTarget();
                 return drawable;

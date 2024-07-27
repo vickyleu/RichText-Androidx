@@ -9,10 +9,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zzhoujay.html.Html;
 import com.zzhoujay.richtext.RichText;
 import com.zzhoujay.richtext.RichType;
 import com.zzhoujay.richtext.callback.OnUrlClickListener;
+import com.zzhoujay.richtext.parser.external.MathTagHandler;
 
 //import com.zzhoujay.okhttpimagedownloader.OkHttpImageDownloader;
 
@@ -163,10 +163,11 @@ public class MainActivity extends AppCompatActivity {
                 "<img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><B>End</B>";
 
 
-        RichText.from("<html><body><p style=\"background-color:rgba(255,0,0,1);\">你们好</p><p style=\"background-color:rgba(255,0,0,1);\">123312n</><p style=\"background-color:rgba(255,0,0,1);\">5678</></body></>")
+        RichText.from("<p>&nbsp;爸爸的爸爸叫什么？<math-tex>\\(\\frac {-b\\pm \\sqrt {{b}^{2}-4ac}} {2a}>\\frac {dy} {dx}\\)</math-tex></p>")
                 .resetSize(true)
                 .sync(false)
                 .type(RichType.html)
+                .customTagParser(new MathTagHandler())
                 .urlClick(new OnUrlClickListener() {
                     @Override
                     public boolean urlClicked(String url) {

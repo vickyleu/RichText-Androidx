@@ -15,9 +15,11 @@ dokka = "1.9.20"
 
 jvmTarget = "17"
 junit = "5.10.1"
-
+tagsoup = "1.2.1"
 
 [libraries]
+tagsoup = { module = "org.ccil.cowan.tagsoup:tagsoup", version.ref = "tagsoup" }
+
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
