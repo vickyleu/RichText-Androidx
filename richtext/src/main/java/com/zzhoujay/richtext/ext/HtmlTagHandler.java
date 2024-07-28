@@ -7,9 +7,11 @@ import android.text.Spanned;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.zzhoujay.html.CustomTagHandler;
 import com.zzhoujay.markdown.style.CodeSpan;
 import com.zzhoujay.markdown.style.MarkDownBulletSpan;
 
+import org.xml.sax.ContentHandler;
 import org.xml.sax.XMLReader;
 
 import java.lang.ref.SoftReference;
@@ -30,34 +32,62 @@ public class HtmlTagHandler implements Html.TagHandler {
     private Stack<Boolean> list;
     private int index = 0;
     private SoftReference<TextView> textViewSoftReference;
+    private List<CustomTagHandler> customTagHandlers;
 
-    public HtmlTagHandler(TextView textView) {
+    public HtmlTagHandler(TextView textView, List<CustomTagHandler> customTagHandlers) {
         stack = new Stack<>();
         list = new Stack<>();
         this.textViewSoftReference = new SoftReference<>(textView);
+        this.customTagHandlers = customTagHandlers;
     }
 
     @Override
     public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
+//        xmlReader.setContentHandler(customContentHandler);
         if (opening) {
+            for (CustomTagHandler customTagHandler : customTagHandlers) {
+                if (customTagHandler.handleTag(true, tag)) {
+                    Log.wtf("customTagHandler", " out:=" + output.toString() + "= ");
+                    ContentHandler handler = xmlReader.getContentHandler();
+                    if (handler != null) {
+                        try {
+                            handler.startDocument();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    Log.wtf("customTagHandler", " reader:=" + xmlReader.toString() + "= ");
+                    return;
+                }
+            }
             startTag(tag, output, xmlReader);
             stack.push(output.length());
         } else {
-            Log.wtf("handleTag","tag.toLowerCase()"+tag.toLowerCase());
             int len;
             if (stack.isEmpty()) {
                 len = 0;
             } else {
                 len = stack.pop();
             }
-
+            for (CustomTagHandler customTagHandler : customTagHandlers) {
+                if (customTagHandler.handleTag(false, tag)) {
+                    ContentHandler handler = xmlReader.getContentHandler();
+                    if (handler != null) {
+                        try {
+                            handler.endDocument();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    return;
+                }
+            }
             reallyHandler(len, output.length(), tag.toLowerCase(), output, xmlReader);
         }
     }
 
     @SuppressWarnings("unused")
     private void startTag(String tag, Editable out, XMLReader reader) {
-        Log.w("startTag","=="+out.toString()+"==");
         switch (tag.toLowerCase()) {
             case "ul":
                 list.push(true);
@@ -76,23 +106,17 @@ public class HtmlTagHandler implements Html.TagHandler {
     private void reallyHandler(int start, int end, String tag, Editable out, XMLReader reader) {
         switch (tag.toLowerCase()) {
             case "body":
-                Log.wtf("subSequence","=="+out.charAt(end-1)+"==");
-                if(out.length()>2 &&
-                        start>=0 && end>start &&
-                        out.charAt(end-1) == '\n'){
-                    try {
-                        Log.wtf("handleTag","tag="+tag+out.toString()+"==="+"=="+"start:"+start+" end:"+end);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    out.delete(end-1,end);
-                    if(out.charAt(end-2) == '\n'){
-                        out.delete(end-2,end-1);
+                if (out.length() > 2 &&
+                        start >= 0 && end > start &&
+                        out.charAt(end - 1) == '\n') {
+                    out.delete(end - 1, end);
+                    if (out.charAt(end - 2) == '\n') {
+                        out.delete(end - 2, end - 1);
                     }
                 }
                 break;
             case "code":
-                CodeSpan cs = new CodeSpan(code_color,Color.BLACK);
+                CodeSpan cs = new CodeSpan(code_color, Color.BLACK);
                 out.setSpan(cs, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 break;
             case "ol":

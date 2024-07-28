@@ -10,6 +10,7 @@ import com.zzhoujay.html.CustomTagHandler;
 
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.function.BiFunction;
 
 /**
  * Created by zhou on 16-7-27.
@@ -25,8 +26,11 @@ public class Html2SpannedParser implements SpannedParser {
     static {
         Method fromHtml = null;
         try {
-            fromHtml = Class.forName(Z_HTML_CLASS_NAME).getMethod("fromHtml", String.class, Html.ImageGetter.class, Html.TagHandler.class);
+            Class  htmlClass = com.zzhoujay.html.Html.class;
+            fromHtml = htmlClass.getMethod("fromHtml", String.class, Html.ImageGetter.class,  Html.TagHandler.class,List.class);
+//            fromHtml = Class.forName(Z_HTML_CLASS_NAME).getMethod("fromHtml", String.class, Html.ImageGetter.class,  Html.TagHandler.class,List.class);
         } catch (Exception ignore) {
+            ignore.printStackTrace();
         }
         Z_FROM_HTML_METHOD = fromHtml;
     }

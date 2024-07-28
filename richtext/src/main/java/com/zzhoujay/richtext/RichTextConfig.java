@@ -310,7 +310,9 @@ public final class RichTextConfig {
         private ArrayList<CustomTagHandler> customTagHandlers = new ArrayList<>();
 
         public RichTextConfigBuild customTagParser(CustomTagHandler tagHandler) {
-            this.customTagHandlers.add(tagHandler);
+            if(!this.customTagHandlers.contains(tagHandler)){
+                this.customTagHandlers.add(tagHandler);
+            }
             return this;
         }
 

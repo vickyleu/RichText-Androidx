@@ -127,7 +127,7 @@ public class RichText implements ImageGetterWrapper, ImageLoadNotify {
         if (config.richType == RichType.markdown) {
             spannedParser = new Markdown2SpannedParser(textView);
         } else {
-            spannedParser = new Html2SpannedParser(new HtmlTagHandler(textView),config.customTagHandlers);
+            spannedParser = new Html2SpannedParser(new HtmlTagHandler(textView,config.customTagHandlers),config.customTagHandlers);
         }
         if (config.clickable > 0) {
             textView.setMovementMethod(new LongClickableLinkMovementMethod());
