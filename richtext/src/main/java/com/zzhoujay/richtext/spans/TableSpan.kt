@@ -23,7 +23,6 @@ class TableSpan(private val tableXml: String) : ReplacementSpan() {
     private fun getMeasuredSize(): Pair<Int, Int> {
         val totalWidth = columnWidths.sum()+convertDpToPixel(20f).toInt()
         val totalHeight = (rows.size * (maxRowHeight))+convertDpToPixel(20f).toInt()
-        println("第第第 总宽度:$totalWidth,总高度:$totalHeight 最大行高:$maxRowHeight")
         return Pair(totalWidth, totalHeight)
     }
 
@@ -68,12 +67,7 @@ class TableSpan(private val tableXml: String) : ReplacementSpan() {
             }
             eventType = parser.next()
         }
-        rows.forEachIndexed { index, strings ->
-            println("第${index+1}行: ${strings.mapIndexed { i, s -> "第${i+1}个:$s" }}")
-        }
-        columnWidths.forEachIndexed { index, int ->
-            println("第${index+1}列: 宽度:$int")
-        }
+
     }
 
     private var isParsed = false

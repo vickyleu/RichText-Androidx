@@ -36,14 +36,6 @@ class MathTagHandler(context: Context) : CustomTagHandler {
                     val clazz = attributes.getValue("class")
                     if (clazz != null) {
                         if (clazz.contains("math-tex")) {
-                            Log.wtf(
-                                "customTagHandler handleStartTag  ",
-                                "startTag=$clazz  ssb:$ssb"
-                            )
-                            Log.wtf(
-                                "customTagHandler handleStartTag  ",
-                                "startTag=$clazz  attributes:${attributes.length}"
-                            )
                             ssb.append("\n")
                             ssb.append(splitMathTex)
                             ssb.append("\n")
