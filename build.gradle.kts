@@ -22,7 +22,11 @@ plugins {
 
 
 allprojects {
-    return@allprojects
+   if(projectDir.toRelativeString(rootDir).startsWith("../")){
+        return@allprojects
+    }
+    println("projectDir.toRelativeString(rootDir)::${projectDir.toRelativeString(rootDir)}")
+
     val properties = Properties().apply {
         runCatching { rootProject.file("local.properties") }
             .getOrNull()
@@ -58,6 +62,7 @@ allprojects {
         if (project == rootProject) {
             return@afterEvaluate
         }
+
         if (project.extensions.findByName("android") != null) {
             val ext = project.extensions.findByType<LibraryExtension>()
                 ?: project.extensions.findByType<com.android.build.gradle.AppExtension>()

@@ -260,7 +260,6 @@ public class RichText implements ImageGetterWrapper, ImageLoadNotify {
         String source = config.source;
 
         Spanned spanned = spannedParser.parse(source);
-        Log.wtf("parseRichText", "==" + spanned + "==");
         if (spanned instanceof SpannableStringBuilder) {
             spannableStringBuilder = (SpannableStringBuilder) spanned;
         } else {

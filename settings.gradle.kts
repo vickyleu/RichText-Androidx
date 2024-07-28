@@ -67,10 +67,10 @@ include(":app")
 include(":richtext")
 include(":okhttpimagedownloader")
 
-include(":Html").apply {
-    project(":Html").projectDir = file("../Html")
-}
-include("Html:htmlSpanner")
+//include(":Html").apply {
+//    project(":Html").projectDir = file("../Html")
+//}
+//include("Html:htmlSpanner")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "RichText-Androidx"

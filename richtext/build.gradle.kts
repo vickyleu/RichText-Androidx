@@ -55,8 +55,8 @@ val runcdep by tasks.registering(Exec::class) {
 tasks.getByName("preBuild").dependsOn(runcdep)
 
 dependencies {
-//    implementation(libs.html)
-    compileOnly(projects.html.htmlSpanner)
+    implementation(libs.html)
+//    compileOnly(projects.html.htmlSpanner)
     implementation(libs.markdown)
     implementation(libs.disklrucache)
     implementation(libs.androidx.annotation)
