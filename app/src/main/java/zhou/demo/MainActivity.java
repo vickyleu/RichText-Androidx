@@ -14,6 +14,7 @@ import com.zzhoujay.richtext.RichText;
 import com.zzhoujay.richtext.RichType;
 import com.zzhoujay.richtext.callback.OnUrlClickListener;
 import com.zzhoujay.richtext.parser.external.MathTagHandler;
+import com.zzhoujay.richtext.parser.external.MaxWidthProvider;
 import com.zzhoujay.richtext.parser.external.TableTagHandler;
 
 //import com.zzhoujay.okhttpimagedownloader.OkHttpImageDownloader;
@@ -170,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 使用textView实现的html table标签和latex公式
                 是是是试试看多行高度计算是否正常
                 不信你看
+                不信你看啊
                 <table>
                                 <tr>
                                     <th>Header 1</th>
@@ -180,10 +182,16 @@ public class MainActivity extends AppCompatActivity {
                                     <td>Cell 2</td>
                                 </tr>
                                 <tr>
+                                    <td>?? 我这个可是超长的文本框哦,一换几十行啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊孤寡孤寡孤寡咕咕咕咕咕咕~神恶魔鬼东西哦math-tex完犊子没有嘿嘿额黑\nh哈哈哈😄收到货就是多好多好</td>
+                                    <td>Cell 4</td>
+                                </tr>
+                                <tr>
                                     <td>Cell 3</td>
                                     <td>Cell 4</td>
                                 </tr>
                 </table>
+                不信你看啊
+                <p>我就不信了</p>
                 <span class="math-tex">\\(\\frac {-b\\pm \\sqrt {{b}^{2}-4ac}} {2a}>\\frac {dy} {dx}\\)</span><p>你们好啊</p></p>
                 """.trim();
         RichText.from(text)
@@ -191,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
                 .sync(false)
                 .type(RichType.html)
                 .customTagParser(new MathTagHandler(this))
-                .customTagParser(new TableTagHandler())
+                .customTagParser(new TableTagHandler(textView::getMeasuredWidth))
                 .urlClick(new OnUrlClickListener() {
                     @Override
                     public boolean urlClicked(String url) {

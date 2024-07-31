@@ -1,2 +1,5 @@
 /build
 publish.sh
+!cdep/bootstrap/**/*
+.cxx/
+cdep/.cdep/

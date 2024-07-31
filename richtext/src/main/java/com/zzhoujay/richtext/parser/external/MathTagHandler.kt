@@ -67,7 +67,7 @@ class MathTagHandler(context: Context) : CustomTagHandler {
                                 MTMathSpan().apply {
                                     this.latex = latex
                                     this.textColor = Color.BLACK
-                                    this.fontSize = 70f
+                                    this.fontSize = 40f
                                     this.labelMode = MTMathSpan.MTMathViewMode.KMTMathViewModeText
                                     this.textAlignment =
                                         MTMathSpan.MTTextAlignment.KMTTextAlignmentLeft

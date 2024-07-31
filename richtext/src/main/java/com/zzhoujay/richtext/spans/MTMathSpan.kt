@@ -20,6 +20,7 @@ import com.zzhoujay.richtext.mathdisplay.render.MTMathListDisplay
 import com.zzhoujay.richtext.mathdisplay.render.MTTypesetter
 import com.zzhoujay.richtext.spans.TableSpan.Companion
 import kotlin.io.path.Path
+import kotlin.math.absoluteValue
 
 class MTMathSpan : ReplacementSpan() {
     private var displayList: MTMathListDisplay? = null
@@ -236,12 +237,20 @@ class MTMathSpan : ReplacementSpan() {
     ): Int {
         val size =getMeasuredSize()
         fm?.let {
-            it.ascent = size.height//(totalHeight.toFloat() / (rows.size-1).toFloat()).toInt()
-            it.descent =size.height// (totalHeight.toFloat() / (rows.size-1).toFloat()).toInt()
-            it.top = it.ascent
+            var dl = displayList
+            val ml = this._mathList
+            if (ml != null && dl == null) {
+                displayList = MTTypesetter.createLineForMathList(ml, font!!, currentStyle)
+                dl = displayList
+            }
+            val ascent = dl?.ascent?:0f
+            val descent = dl?.descent?:0f
+            // 设置 FontMetricsInt 参数
+            it.ascent = -(ascent.toInt().absoluteValue+10)
+            it.descent = descent.toInt().absoluteValue+10
+            it.top = it.ascent// 根据需要调整顶部距离
+            it.bottom = it.descent // 根据需要调整底部距离
             it.leading = 0
-
-            it.bottom = it.descent
         }
         //下面是view种计算宽高的方法.如何将这个应用到ReplacementSpan 的 getSize中
         return size.width
@@ -285,8 +294,9 @@ class MTMathSpan : ReplacementSpan() {
             return
         }
 
-        val width = getMeasuredSize().width
-        val height = getMeasuredSize().height
+        val size = getMeasuredSize()
+        val width = size.width
+        val height = size.height
         var dl = displayList
         val ml = this._mathList
         if (ml != null && dl == null) {
