@@ -3,13 +3,15 @@ package com.zzhoujay.richtext.parser.external
 import android.content.Context
 import android.graphics.Color
 import android.text.SpannableStringBuilder
-import android.util.Log
 import com.zzhoujay.html.CustomTagHandler
 import com.zzhoujay.richtext.mathdisplay.MTFontManager
 import com.zzhoujay.richtext.spans.MTMathSpan
 import org.xml.sax.Attributes
 
-class MathTagHandler(context: Context) : CustomTagHandler {
+class MathTagHandler(
+    private val context: Context,
+    private val textSizeSp: Float = 30f
+) : CustomTagHandler {
     init {
         MTFontManager.setContext(context)
     }
@@ -67,7 +69,10 @@ class MathTagHandler(context: Context) : CustomTagHandler {
                                 MTMathSpan().apply {
                                     this.latex = latex
                                     this.textColor = Color.BLACK
-                                    this.fontSize = 40f
+                                    val fSize =
+                                        context.resources.displayMetrics.scaledDensity * textSizeSp
+                                    this.fontSize = fSize
+                                    this.font = MTFontManager.latinModernFontWithSize(fSize)
                                     this.labelMode = MTMathSpan.MTMathViewMode.KMTMathViewModeText
                                     this.textAlignment =
                                         MTMathSpan.MTTextAlignment.KMTTextAlignmentLeft

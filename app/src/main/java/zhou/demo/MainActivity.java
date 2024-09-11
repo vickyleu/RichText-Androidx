@@ -198,17 +198,14 @@ public class MainActivity extends AppCompatActivity {
                 .resetSize(true)
                 .sync(false)
                 .type(RichType.html)
-                .customTagParser(new MathTagHandler(this))
-                .customTagParser(new TableTagHandler(textView::getMeasuredWidth))
-                .urlClick(new OnUrlClickListener() {
-                    @Override
-                    public boolean urlClicked(String url) {
-                        if (url.startsWith("code://")) {
-                            Toast.makeText(MainActivity.this, url.replaceFirst("code://", ""), Toast.LENGTH_SHORT).show();
-                            return true;
-                        }
-                        return false;
+                .customTagParser(new MathTagHandler(this,20f))
+                .customTagParser(new TableTagHandler(this,15f,textView::getMeasuredWidth))
+                .urlClick(url -> {
+                    if (url.startsWith("code://")) {
+                        Toast.makeText(MainActivity.this, url.replaceFirst("code://", ""), Toast.LENGTH_SHORT).show();
+                        return true;
                     }
+                    return false;
                 })
                 .into(textView);
 

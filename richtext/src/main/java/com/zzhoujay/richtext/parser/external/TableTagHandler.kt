@@ -1,5 +1,6 @@
 package com.zzhoujay.richtext.parser.external
 
+import android.content.Context
 import android.text.SpannableStringBuilder
 import com.zzhoujay.html.CustomTagHandler
 import com.zzhoujay.richtext.spans.TableSpan
@@ -15,7 +16,10 @@ interface MaxWidthProvider {
     fun getMaxWidth(): Int
 }
 
-class TableTagHandler(private val maxWidthProvider: MaxWidthProvider): CustomTagHandler {
+class TableTagHandler(
+    private val context: Context,
+    private val textSizeSp: Float = 30f,
+    private val maxWidthProvider: MaxWidthProvider): CustomTagHandler {
     //通过tag组合成一个xml的list,每一个非table标签都是从最后一个index拼装xml,以table标签为分界,开始一个标签用于组合,接受一个标签用于拼装,变成一个spannable
     private val xmlStack = Stack<Pair<XmlSerializer,ByteArrayOutputStream>>()
     private val splitTabRegex = "<TableTagHandler-table-function>"
@@ -102,7 +106,7 @@ class TableTagHandler(private val maxWidthProvider: MaxWidthProvider): CustomTag
                     trLine ="(tableRow)"
                     ssb.append("(tableRow)")
                     ssb.setSpan(
-                        TableSpan(xmlString,maxWidthProvider),
+                        TableSpan(xmlString,maxWidthProvider,context,textSizeSp),
                         ssb.length - trLine.length,
                         ssb.length,
                         SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE

@@ -1,5 +1,6 @@
 package com.zzhoujay.richtext.spans
 
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Color
@@ -10,9 +11,13 @@ import android.text.style.ReplacementSpan
 import com.zzhoujay.richtext.parser.external.MaxWidthProvider
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
-import kotlin.math.absoluteValue
 
-class TableSpan(private val tableXml: String, private val maxWidthProvider: MaxWidthProvider) :
+class TableSpan(
+    private val tableXml: String,
+    private val maxWidthProvider: MaxWidthProvider,
+    private val context: Context,
+    private val textSizeSp: Float
+) :
     ReplacementSpan() {
     private val columnCount = mutableListOf<Int>()
     private val rows = mutableListOf<MutableList<Pair<Boolean, String>>>()
@@ -64,6 +69,10 @@ class TableSpan(private val tableXml: String, private val maxWidthProvider: MaxW
         val maxColumnCount = columnCount.maxOrNull() ?: 0
         totalWidth = maxWidthProvider.getMaxWidth() - convertDpToPixel(20f).toInt()
         val columnWidth = (totalWidth / maxColumnCount)- convertDpToPixel(20f).toInt()
+
+        val fSize =
+            context.resources.displayMetrics.scaledDensity * textSizeSp
+        paint.textSize = fSize
         rows.forEach { row ->
             row.forEachIndexed { index, cell ->
                 val wrappedText = wrapText(cell.second, paint, columnWidth)
@@ -139,6 +148,10 @@ class TableSpan(private val tableXml: String, private val maxWidthProvider: MaxW
     override fun draw(canvas: Canvas, text: CharSequence?, start: Int, end: Int, x: Float, top: Int, y: Int, bottom: Int, paint: Paint) {
         val (totalWidth, totalHeight) = getMeasuredSize()
         paint.color = Color.BLACK
+        val fSize =
+            context.resources.displayMetrics.scaledDensity * textSizeSp
+        paint.textSize = fSize
+
 
         val left = x + convertDpToPixel(10f)
         var startX = left
