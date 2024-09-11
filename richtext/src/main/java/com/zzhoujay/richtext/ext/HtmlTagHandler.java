@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.zzhoujay.html.CustomTagHandler;
+import com.zzhoujay.html.HtmlToSpannedConverter;
 import com.zzhoujay.markdown.style.CodeSpan;
 import com.zzhoujay.markdown.style.MarkDownBulletSpan;
 
@@ -46,18 +47,28 @@ public class HtmlTagHandler implements Html.TagHandler {
 //        xmlReader.setContentHandler(customContentHandler);
         if (opening) {
             for (CustomTagHandler customTagHandler : customTagHandlers) {
-                if (customTagHandler.handleTag(true, tag)) {
-                    Log.wtf("customTagHandler", " out:=" + output.toString() + "= ");
-                    ContentHandler handler = xmlReader.getContentHandler();
-                    if (handler != null) {
-                        try {
-                            handler.startDocument();
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                ContentHandler handler = xmlReader.getContentHandler();
+                if (customTagHandler.handleTag(true, tag, output)) {
+                    try {
+                        Log.wtf("customTagHandler", " tag:=" + tag + "= ");
+                        HtmlToSpannedConverter contentHandler = (HtmlToSpannedConverter) xmlReader.getContentHandler();
+                        if (contentHandler != null) {
+                            if (customTagHandler.prepereTag(false, tag, contentHandler.getSpannedBuiler())) {
+                                Log.wtf("customTagHandler", " out:=" + output.toString() + "= ");
+                                if (handler != null) {
+                                    try {
+                                        handler.startDocument();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                Log.wtf("customTagHandler", " reader:=" + xmlReader.toString() + "= ");
+                                return;
+                            }
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    Log.wtf("customTagHandler", " reader:=" + xmlReader.toString() + "= ");
-                    return;
                 }
             }
             startTag(tag, output, xmlReader);
@@ -70,16 +81,26 @@ public class HtmlTagHandler implements Html.TagHandler {
                 len = stack.pop();
             }
             for (CustomTagHandler customTagHandler : customTagHandlers) {
-                if (customTagHandler.handleTag(false, tag)) {
+                if (customTagHandler.handleTag(false, tag, output)) {
                     ContentHandler handler = xmlReader.getContentHandler();
-                    if (handler != null) {
-                        try {
-                            handler.endDocument();
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                    try {
+                        HtmlToSpannedConverter contentHandler = (HtmlToSpannedConverter) xmlReader.getContentHandler();
+                        if (contentHandler != null) {
+                            if (customTagHandler.prepereTag(false, tag, contentHandler.getSpannedBuiler())) {
+                                if (handler != null) {
+                                    try {
+                                        handler.endDocument();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                return;
+                            }
                         }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    return;
                 }
             }
             reallyHandler(len, output.length(), tag.toLowerCase(), output, xmlReader);

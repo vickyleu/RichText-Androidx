@@ -1,6 +1,7 @@
 package com.zzhoujay.richtext.parser.external
 
 import android.content.Context
+import android.text.Editable
 import android.text.SpannableStringBuilder
 import com.zzhoujay.html.CustomTagHandler
 import com.zzhoujay.richtext.spans.TableSpan
@@ -23,7 +24,16 @@ class TableTagHandler(
     //通过tag组合成一个xml的list,每一个非table标签都是从最后一个index拼装xml,以table标签为分界,开始一个标签用于组合,接受一个标签用于拼装,变成一个spannable
     private val xmlStack = Stack<Pair<XmlSerializer,ByteArrayOutputStream>>()
     private val splitTabRegex = "<TableTagHandler-table-function>"
-    override fun handleTag(opening: Boolean, tag: String): Boolean {
+    override fun handleTag(opening: Boolean, tag: String, output: Editable): Boolean {
+        return when(tag){
+            "table" -> true
+            "tr" -> true
+            "th" -> true
+            "td" -> true
+            else -> false
+        }
+    }
+    override fun prepereTag( opening: Boolean,tag: String, output: SpannableStringBuilder): Boolean {
         return when(tag){
             "table" -> true
             "tr" -> true

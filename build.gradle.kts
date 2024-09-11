@@ -16,7 +16,9 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.dokka)
+
     id("maven-publish")
 }
 
@@ -62,7 +64,9 @@ allprojects {
         if (project == rootProject) {
             return@afterEvaluate
         }
-
+        if (project.name.startsWith(":Html")) {
+            return@afterEvaluate
+        }
         if (project.extensions.findByName("android") != null) {
             val ext = project.extensions.findByType<LibraryExtension>()
                 ?: project.extensions.findByType<com.android.build.gradle.AppExtension>()

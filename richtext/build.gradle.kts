@@ -48,15 +48,18 @@ android {
         }
     }
 }
+/*
+ // It only needs to work when compiling for the first time, and it does not need to be used the rest of the time.
 val runcdep by tasks.registering(Exec::class) {
     commandLine("./cdep/cdep")
 }
 
 tasks.getByName("preBuild").dependsOn(runcdep)
+*/
 
 dependencies {
-    implementation(libs.html)
-//    compileOnly(projects.html.htmlSpanner)
+//    implementation(libs.html)
+    implementation(projects.html.htmlSpanner)
     implementation(libs.markdown)
     implementation(libs.disklrucache)
     implementation(libs.androidx.annotation)

@@ -121,7 +121,6 @@ class TableSpan(
                 currentLine.append(sb.toString())
             }
         }
-        println("试试看能不能正常换行: ${currentLine.toString()}")
         return currentLine.toString()
     }
 

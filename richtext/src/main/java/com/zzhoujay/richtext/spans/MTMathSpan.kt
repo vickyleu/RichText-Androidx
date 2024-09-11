@@ -52,12 +52,13 @@ class MTMathSpan : ReplacementSpan() {
     var latex: String = ""
         set(value) {
             field = value
-
-            val list: MTMathList? = MTMathListBuilder.buildFromString(latex, lastError)
-            if (lastError.errorcode != MTParseErrors.ErrorNone) {
-                this._mathList = null
-            } else {
-                this._mathList = list
+            MTMathListBuilder.Factory
+            MTMathListBuilder.buildFromString(value, lastError).let {
+                if(lastError.errorcode != MTParseErrors.ErrorNone) {
+                    this._mathList = null
+                }else{
+                    this._mathList = it
+                }
             }
             displayList = null
 //            requestLayout()
@@ -265,16 +266,13 @@ class MTMathSpan : ReplacementSpan() {
         }
         var height = 0.0f
         var width = 0.0f
-
         if (dl != null) {
             height = dl.ascent + dl.descent
             width = dl.width
         }
-
         val r = errorBounds()
         height = maxOf(height, r.height().toFloat())
         width = maxOf(width, r.width().toFloat())
-//        setMeasuredDimension((width + 1.0f).toInt(), (height + 1.0f).toInt())
         return Size((width + 1.0f).toInt(), (height + 1.0f).toInt())
     }
 

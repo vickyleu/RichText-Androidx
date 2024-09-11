@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         RichText.debugMode = true;
 
         final TextView textView = findViewById(R.id.text);
-        textView.setBackgroundColor(Color.GRAY);
+//        textView.setBackgroundColor(Color.GRAY);
         String test_text_2 = "<B>Start</B> <img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' />" +
                 "<img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' />" +
                 "<img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' />" +
@@ -166,39 +166,42 @@ public class MainActivity extends AppCompatActivity {
                 "<img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><img src='http://wx1.sinaimg.cn/mw690/eaaf2affly1fihvjpekzwj21el0qotfq.jpg' /><B>End</B>";
 
 
+//        String text = """
+//                <p>&nbsp;爸爸的爸爸叫什么？
+//                使用textView实现的html table标签和latex公式
+//                是是是试试看多行高度计算是否正常
+//                不信你看
+//                不信你看啊
+//                <table>
+//                                <tr>
+//                                    <th>Header 1</th>
+//                                    <th>Header 2</th>
+//                                </tr>
+//                                <tr>
+//                                    <td>Cell 1</td>
+//                                    <td>Cell 2</td>
+//                                </tr>
+//                                <tr>
+//                                    <td>?? 我这个可是超长的文本框哦,一换几十行啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊孤寡孤寡孤寡咕咕咕咕咕咕~神恶魔鬼东西哦math-tex完犊子没有嘿嘿额黑\nh哈哈哈😄收到货就是多好多好</td>
+//                                    <td>Cell 4</td>
+//                                </tr>
+//                                <tr>
+//                                    <td>Cell 3</td>
+//                                    <td>Cell 4</td>
+//                                </tr>
+//                </table>
+//                不信你看啊
+//                <p>我就不信了</p>
+//                <span class="math-tex">\\(\\frac {-b\\pm \\sqrt {{b}^{2}-4ac}} {2a}>\\frac {dy} {dx}\\)</span><p>你们好啊</p></p>
+//                """.trim();
         String text = """
-                <p>&nbsp;爸爸的爸爸叫什么？
-                使用textView实现的html table标签和latex公式
-                是是是试试看多行高度计算是否正常
-                不信你看
-                不信你看啊
-                <table>
-                                <tr>
-                                    <th>Header 1</th>
-                                    <th>Header 2</th>
-                                </tr>
-                                <tr>
-                                    <td>Cell 1</td>
-                                    <td>Cell 2</td>
-                                </tr>
-                                <tr>
-                                    <td>?? 我这个可是超长的文本框哦,一换几十行啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊孤寡孤寡孤寡咕咕咕咕咕咕~神恶魔鬼东西哦math-tex完犊子没有嘿嘿额黑\nh哈哈哈😄收到货就是多好多好</td>
-                                    <td>Cell 4</td>
-                                </tr>
-                                <tr>
-                                    <td>Cell 3</td>
-                                    <td>Cell 4</td>
-                                </tr>
-                </table>
-                不信你看啊
-                <p>我就不信了</p>
                 <span class="math-tex">\\(\\frac {-b\\pm \\sqrt {{b}^{2}-4ac}} {2a}>\\frac {dy} {dx}\\)</span><p>你们好啊</p></p>
                 """.trim();
         RichText.from(text)
                 .resetSize(true)
                 .sync(false)
                 .type(RichType.html)
-                .customTagParser(new MathTagHandler(this,20f))
+                .customTagParser(new MathTagHandler(this,30f))
                 .customTagParser(new TableTagHandler(this,15f,textView::getMeasuredWidth))
                 .urlClick(url -> {
                     if (url.startsWith("code://")) {
