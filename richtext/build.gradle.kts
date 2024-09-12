@@ -33,6 +33,12 @@ android {
         sourceCompatibility = JavaVersion.toVersion(libs.versions.jvmTarget.get())
         targetCompatibility = JavaVersion.toVersion(libs.versions.jvmTarget.get())
     }
+
+
+    kotlinOptions {
+        jvmTarget = libs.versions.jvmTarget.get()
+    }
+
     externalNativeBuild {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
