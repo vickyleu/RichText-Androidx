@@ -16,6 +16,7 @@ data class RichTextCompose(
     }
 
     val height: MutableState<Dp> = mutableStateOf(0.dp)
+    val width: MutableState<Dp> = mutableStateOf(0.dp)
 }
 fun convertToLatex(input: String): String {
     return if(input.contains("backslash ")){

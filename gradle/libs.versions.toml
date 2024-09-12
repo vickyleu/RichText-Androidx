@@ -34,6 +34,12 @@ tagsoup = { module = "org.ccil.cowan.tagsoup:tagsoup", version.ref = "tagsoup" }
 coil-bom = { module = "io.coil-kt.coil3:coil-bom", version.ref = "coil-bom" }
 coil-core = { module = "io.coil-kt.coil3:coil" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose" }
+coil-video = { module = "io.coil-kt.coil3:coil-video" }
+coil-gif = { module = "io.coil-kt.coil3:coil-gif" }
+coil-svg = { module = "io.coil-kt.coil3:coil-svg" }
+
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version = "3.0.0-alpha06" }
+coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version = "3.0.0-alpha06" }
 
 
 ksoup = { module = "com.fleeksoft.ksoup:ksoup", version.ref = "ksoup" }

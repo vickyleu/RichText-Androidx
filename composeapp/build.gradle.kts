@@ -57,7 +57,12 @@ dependencies {
     implementation(project.dependencies.platform(libs.coil.bom))
     implementation(libs.coil.compose)
     implementation(libs.coil.core)
+    implementation(libs.coil.network.ktor)
 
+    implementation(libs.coil.gif)
+    implementation(libs.coil.video)
+    implementation(libs.coil.svg)
+    implementation(libs.coil.network.okhttp)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

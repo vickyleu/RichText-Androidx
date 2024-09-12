@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.requiredWidthIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -155,10 +156,14 @@ fun RichTextPlatformView(
                             oldBottom: Int
                         ) {
                             (v ?: return).measure(
-                                View.MeasureSpec.makeMeasureSpec(v.width, View.MeasureSpec.EXACTLY),
+                                View.MeasureSpec.makeMeasureSpec(maxWidth.roundToPx(), View.MeasureSpec.EXACTLY),
                                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
                             )
+
+                            state.value.width.value = v.measuredWidth.toDp()
                             state.value.height.value = v.measuredHeight.toDp()
+
+                            println()
                         }
                     }
                 }
@@ -190,6 +195,7 @@ fun RichTextPlatformView(
                                     setTypeface(null, fw)
                                 }
                             }
+                            this.addOnLayoutChangeListener(listener)
                             rich.into(this)
                         }
                     },
@@ -198,15 +204,14 @@ fun RichTextPlatformView(
                         .wrapContentHeight()
                         .requiredWidthIn(
                             min = 10.dp,
+                            max = max(maxWidth, state.value.width.value)
+                        )
+                        .requiredHeightIn(
+                            min = 10.dp,
                             max = max(maxWidth, state.value.height.value)
                         ),
                     update = { view ->
                         rich.autoPlay(true)
-                        if (view.tag == null) {
-                            view.tag = rich
-                            view.removeOnLayoutChangeListener(listener)
-                            view.addOnLayoutChangeListener(listener)
-                        }
                     }
                 )
             }

@@ -8,6 +8,8 @@
 * 低侵入性
 * 依赖少，只依赖了`disklrucache`和`support v4`
 * 支持Html和Markdown格式文本
+* 支持Latex数学公式
+* 支持Table表格显示,目前仅支持固定最大宽度的表格,高度会自动计算
 * 支持图片点击和长按事件
 * 链接点击事件和长按事件
 * 支持设置加载中和加载错误时的图片
@@ -21,6 +23,8 @@
 
 ### 效果
 
+![表格演示](image/table.png "表格演示")
+![Compose演示](image/compose.png "Compose演示")
 ![演示](image/image.jpg "演示")
 
 
