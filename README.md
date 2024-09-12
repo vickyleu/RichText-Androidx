@@ -1,6 +1,8 @@
-# RichText-AndroidX
-
-### 注意：原项目作者已经不维护了，不支持AndroidX，此项目使用原作者代码改造为支持Androidx
+# RichText
+### 效果
+![表格演示](image/table.png "表格演示")
+![Compose演示](image/compose.png "Compose演示")
+![演示](image/image.jpg "演示")
 
 > Android平台下的富文本解析器
 
@@ -20,12 +22,6 @@
 * 自持自定义图片加载器、图片加载器
 * 支持内存和磁盘双缓存
 * 已经加入对自定义Html解析器的支持
-
-### 效果
-
-![表格演示](image/table.png "表格演示")
-![Compose演示](image/compose.png "Compose演示")
-![演示](image/image.jpg "演示")
 
 
 ### gradle中引用的方法
