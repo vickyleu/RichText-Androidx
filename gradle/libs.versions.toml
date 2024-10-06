@@ -1,5 +1,5 @@
 [versions]
-agp = "8.6.0"
+agp = "8.7.0"
 annotation = "1.8.2"
 disklrucache = "2.0.2"
 appcompat = "1.7.0"
@@ -20,13 +20,13 @@ coreKtx = "1.13.1"
 junitVersion = "4.13.2"
 androidxJunit = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.5"
+lifecycleRuntimeKtx = "2.8.6"
 activityCompose = "1.9.2"
 
 ksoup = "0.1.2"
 
-composeBom = "2024.09.01"
-coil-bom = "3.0.0-alpha06"
+composeBom = "2024.09.03"
+coil-bom = "3.0.0-alpha10"
 
 [libraries]
 tagsoup = { module = "org.ccil.cowan.tagsoup:tagsoup", version.ref = "tagsoup" }
@@ -38,8 +38,8 @@ coil-video = { module = "io.coil-kt.coil3:coil-video" }
 coil-gif = { module = "io.coil-kt.coil3:coil-gif" }
 coil-svg = { module = "io.coil-kt.coil3:coil-svg" }
 
-coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version = "3.0.0-alpha06" }
-coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version = "3.0.0-alpha06" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version = "3.0.0-alpha10" }
+coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version = "3.0.0-alpha10" }
 
 
 ksoup = { module = "com.fleeksoft.ksoup:ksoup", version.ref = "ksoup" }
