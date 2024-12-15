@@ -19,7 +19,16 @@ class MTDrawFreeType(val mathfont: MTFontMathTable) {
             if (plainbitmap != null) {
                 if (plainbitmap.width == 0 || plainbitmap.rows == 0) {
                     if (gid != 1 && gid != 33) {
-                        throw MathDisplayException("missing glyph slot $gid.")
+                        println("missing glyph slot $gid. canvas=${canvas.width}x${canvas.height} " +
+                                "isHardwareAccelerated=${canvas.isHardwareAccelerated}" +
+                                "isOpaque=${canvas.isOpaque} " +
+                                "maximumBitmapWidth=${canvas.maximumBitmapWidth} "
+                        )
+                        /*throw MathDisplayException("missing glyph slot $gid. canvas=${canvas.width}x${canvas.height} " +
+                                "isHardwareAccelerated=${canvas.isHardwareAccelerated}" +
+                                "isOpaque=${canvas.isOpaque} " +
+                                "maximumBitmapWidth=${canvas.maximumBitmapWidth} "
+                        )*/
                     }
                 } else {
                     val bitmap = Bitmap.createBitmap(plainbitmap.width, plainbitmap.rows, Bitmap.Config.ALPHA_8)
