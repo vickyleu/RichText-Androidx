@@ -19,16 +19,8 @@ data class RichTextCompose(
     val width: MutableState<Dp> = mutableStateOf(0.dp)
 }
 fun convertToLatex(input: String): String {
-    return if(input.contains("backslash ")){
-        input
-            .replace("\\backslash ", "\\")
-//                .replace("rightarrow ", " > ")
-//                .replace("leftarrow ", " < ")
-            .replace("\\{", "{")
-            .replace("\\}", "}")
-            .replace("\\~", "~")
-    }else input
-
+    return input
+        .replace("\\\\", "\\")
 }
 
 fun convertImageSrc(input: String): String {

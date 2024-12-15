@@ -3,7 +3,9 @@ plugins{
     alias(libs.plugins.kotlin.android)
 }
 
-
+kotlin{
+    jvmToolchain(libs.versions.jvmTarget.get().toInt())
+}
 android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     namespace = "zhou.demo"
@@ -32,6 +34,6 @@ dependencies {
     testImplementation(libs.junit)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.recyclerview)
-    implementation(libs.html)
-//    implementation(projects.html.htmlSpanner)
+//    implementation(libs.html)
+    implementation(projects.html.htmlSpanner)
 }

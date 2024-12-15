@@ -52,7 +52,7 @@ class MTMathSpan : ReplacementSpan() {
     var latex: String = ""
         set(value) {
             field = value
-            MTMathListBuilder.Factory
+            println("value::${value}")
             MTMathListBuilder.buildFromString(value, lastError).let {
                 if(lastError.errorcode != MTParseErrors.ErrorNone) {
                     this._mathList = null

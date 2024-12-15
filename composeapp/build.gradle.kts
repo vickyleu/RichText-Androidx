@@ -3,7 +3,9 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
 }
-
+kotlin{
+    jvmToolchain(libs.versions.jvmTarget.get().toInt())
+}
 android {
     namespace = "org.uooc.composeapp"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -50,7 +52,8 @@ android {
 
 dependencies {
     implementation(projects.richtext)
-    implementation(libs.html)
+    implementation(projects.html.htmlSpanner)
+//    implementation(libs.html)
 
     implementation(libs.ksoup)
 

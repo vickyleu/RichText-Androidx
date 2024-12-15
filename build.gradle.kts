@@ -7,6 +7,10 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.Properties
@@ -183,6 +187,17 @@ allprojects {
     }
 }
 
+
+subprojects {
+    if (project.hasProperty("kotlin")) {
+        project.extensions.configure<KotlinProjectExtension>{
+            jvmToolchain(libs.versions.jvmTarget.get().toInt())
+        }
+        tasks.withType<KotlinCompile> {
+            compilerOptions.jvmTarget = JvmTarget.valueOf(libs.versions.jvmTarget.get())
+        }
+    }
+}
 
 tasks.register("deletePackages") {
     val libs = rootDir.resolve("gradle/libs.versions.toml")

@@ -6,7 +6,9 @@ plugins{
 group = "com.zzhoujay.okhttpimagedownloader"
 version = "1.0.2"
 
-
+kotlin{
+    jvmToolchain(libs.versions.jvmTarget.get().toInt())
+}
 android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     namespace = "com.zzhoujay.okhttpimagedownloader"

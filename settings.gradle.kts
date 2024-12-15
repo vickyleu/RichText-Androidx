@@ -41,6 +41,10 @@ dependencyResolutionManagement {
             }
         }
         maven {
+            url = uri("https://maven.aliyun.com/nexus/content/groups/public/")
+            isAllowInsecureProtocol = true
+        }
+        maven {
             val properties = java.util.Properties().apply {
                 runCatching { rootProject.projectDir.resolve("local.properties") }
                     .getOrNull()
@@ -70,10 +74,10 @@ include(":app")
 include(":richtext")
 include(":okhttpimagedownloader")
 
-//include(":Html").apply {
-//    project(":Html").projectDir = file("../Html")
-//}
-//include("Html:htmlSpanner")
+include(":Html").apply {
+    project(":Html").projectDir = file("../Html")
+}
+include("Html:htmlSpanner")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "RichText-Androidx"

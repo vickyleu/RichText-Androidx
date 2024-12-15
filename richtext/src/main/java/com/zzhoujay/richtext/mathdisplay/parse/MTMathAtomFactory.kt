@@ -435,6 +435,7 @@ open class MTMathAtomFactory {
             "uplus" to MTMathAtom(MTMathAtomType.KMTMathAtomBinaryOperator, "\u228E"),
             "sqcap" to MTMathAtom(MTMathAtomType.KMTMathAtomBinaryOperator, "\u2293"),
             "sqcup" to MTMathAtom(MTMathAtomType.KMTMathAtomBinaryOperator, "\u2294"),
+            "surd" to MTMathAtom(MTMathAtomType.KMTMathAtomBinaryOperator, "\u221A"),
             "oplus" to MTMathAtom(MTMathAtomType.KMTMathAtomBinaryOperator, "\u2295"),
             "ominus" to MTMathAtom(MTMathAtomType.KMTMathAtomBinaryOperator, "\u2296"),
             "otimes" to MTMathAtom(MTMathAtomType.KMTMathAtomBinaryOperator, "\u2297"),
@@ -530,6 +531,7 @@ open class MTMathAtomFactory {
             "forall" to MTMathAtom(MTMathAtomType.KMTMathAtomOrdinary, "\u2200"),
             "exists" to MTMathAtom(MTMathAtomType.KMTMathAtomOrdinary, "\u2203"),
             "emptyset" to MTMathAtom(MTMathAtomType.KMTMathAtomOrdinary, "\u2205"),
+            "varnothing" to MTMathAtom(MTMathAtomType.KMTMathAtomOrdinary, "\u2205"),
             "nabla" to MTMathAtom(MTMathAtomType.KMTMathAtomOrdinary, "\u2207"),
             "infty" to MTMathAtom(MTMathAtomType.KMTMathAtomOrdinary, "\u221E"),
             "angle" to MTMathAtom(MTMathAtomType.KMTMathAtomOrdinary, "\u2220"),
@@ -556,7 +558,29 @@ open class MTMathAtomFactory {
             "displaystyle" to MTMathStyle(MTLineStyle.KMTLineStyleDisplay),
             "textstyle" to MTMathStyle(MTLineStyle.KMTLineStyleText),
             "scriptstyle" to MTMathStyle(MTLineStyle.KMTLineStyleScript),
-            "scriptscriptstyle" to MTMathStyle(MTLineStyle.KMTLineStyleScriptScript)
+            "scriptscriptstyle" to MTMathStyle(MTLineStyle.KMTLineStyleScriptScript),
+
+            // Additional relations
+            "nsubseteq" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u2288"),
+            "nsupseteq" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u2289"),
+            "notparallel" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u2226"),
+            "subsetneq" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u228A"),
+            "supsetneq" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u228B"),
+
+            // Additional operators
+            "bigtriangleup" to MTMathAtom(MTMathAtomType.KMTMathAtomBinaryOperator, "\u25B3"),
+            "bigtriangledown" to MTMathAtom(MTMathAtomType.KMTMathAtomBinaryOperator, "\u25BD"),
+
+
+            // Additional arrows
+            "hookleftarrow" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u21A9"),
+            "hookrightarrow" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u21AA"),
+            "leftharpoonup" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u21BC"),
+            "leftharpoondown" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u21BD"),
+            "rightharpoonup" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u21C0"),
+            "rightharpoondown" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u21C1"),
+            "rightsquigarrow" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u21DD"),
+            "leadsto" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u21DD"),
     )
 
     val aliases: HashMap<String, String> = hashMapOf(

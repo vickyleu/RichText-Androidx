@@ -8,7 +8,9 @@ plugins {
 
 group = "com.zzhoujay.richtext"
 version = "3.0.1"
-
+kotlin{
+    jvmToolchain(libs.versions.jvmTarget.get().toInt())
+}
 android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     namespace = "com.zzhoujay.richtext"
@@ -62,8 +64,10 @@ val runcdep by tasks.registering(Exec::class) {
 tasks.getByName("preBuild").dependsOn(runcdep)
 
 dependencies {
-    implementation(libs.html)
-//    implementation(projects.html.htmlSpanner)
+    //compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+//    implementation(libs.html)
+    implementation(projects.html.htmlSpanner)
     implementation(libs.markdown)
     implementation(libs.disklrucache)
     implementation(libs.androidx.annotation)
