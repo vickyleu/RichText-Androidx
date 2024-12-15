@@ -52,8 +52,8 @@ android {
 
 dependencies {
     implementation(projects.richtext)
-    implementation(projects.html.htmlSpanner)
-//    implementation(libs.html)
+//    implementation(projects.html.htmlSpanner)
+    implementation(libs.html)
 
     implementation(libs.ksoup)
 

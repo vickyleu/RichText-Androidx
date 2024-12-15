@@ -34,6 +34,6 @@ dependencies {
     testImplementation(libs.junit)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.recyclerview)
-//    implementation(libs.html)
-    implementation(projects.html.htmlSpanner)
+    implementation(libs.html)
+//    implementation(projects.html.htmlSpanner)
 }

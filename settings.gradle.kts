@@ -56,7 +56,7 @@ dependencyResolutionManagement {
             extra["githubToken"] = properties["github.token"] as? String
                 ?: environment["GITHUB_TOKEN"] ?: ""
 
-            url = uri("https://maven.pkg.github.com/vickyleu/Html")
+            url = uri("https://maven.pkg.github.com/vickyleu/abc")
             credentials {
                 username = "vickyleu"
                 password = extra["githubToken"]?.toString()
@@ -74,10 +74,10 @@ include(":app")
 include(":richtext")
 include(":okhttpimagedownloader")
 
-include(":Html").apply {
-    project(":Html").projectDir = file("../Html")
-}
-include("Html:htmlSpanner")
+//include(":Html").apply {
+//    project(":Html").projectDir = file("../Html")
+//}
+//include("Html:htmlSpanner")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "RichText-Androidx"

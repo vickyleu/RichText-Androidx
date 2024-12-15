@@ -64,10 +64,9 @@ val runcdep by tasks.registering(Exec::class) {
 tasks.getByName("preBuild").dependsOn(runcdep)
 
 dependencies {
-    //compile fileTree(include: ['*.jar'], dir: 'libs')
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-//    implementation(libs.html)
-    implementation(projects.html.htmlSpanner)
+    implementation(libs.html)
+//    implementation(projects.html.htmlSpanner)
     implementation(libs.markdown)
     implementation(libs.disklrucache)
     implementation(libs.androidx.annotation)
