@@ -581,6 +581,17 @@ open class MTMathAtomFactory {
             "rightharpoondown" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u21C1"),
             "rightsquigarrow" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u21DD"),
             "leadsto" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u21DD"),
+
+        // 加在这里没有任何作用
+        "blacksquare" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u25A0"),
+        "nexists" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u2204"),
+        "ow" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u2395"),
+        "therefore" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u2234"),
+        "because" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u2235"),
+        "beth" to MTMathAtom(MTMathAtomType.KMTMathAtomOrdinary, "\u2136"), // ℶ
+        "iint" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u222C"), // ∬
+        "iiint" to MTMathAtom(MTMathAtomType.KMTMathAtomRelation, "\u222D"), // ∭
+        "placeholder" to MTMathAtom(MTMathAtomType.KMTMathAtomOrdinary, "\u25A1"), // □ (虚线小方框可用此替代)
     )
 
     val aliases: HashMap<String, String> = hashMapOf(

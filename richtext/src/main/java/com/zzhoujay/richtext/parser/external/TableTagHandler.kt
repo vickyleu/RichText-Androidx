@@ -13,7 +13,7 @@ import java.io.ByteArrayOutputStream
 import java.util.Stack
 
 
-interface MaxWidthProvider {
+fun interface MaxWidthProvider {
     fun getMaxWidth(): Int
 }
 

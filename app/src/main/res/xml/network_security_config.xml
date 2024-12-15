@@ -3,5 +3,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">ww4.sinaimg.cn</domain>
         <domain includeSubdomains="true">baidu.com</domain>
+        <domain includeSubdomains="true">uooconline.com</domain>
     </domain-config>
 </network-security-config>
