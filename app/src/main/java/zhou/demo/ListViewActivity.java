@@ -101,7 +101,7 @@ public class ListViewActivity extends AppCompatActivity {
                 RichText.from(text).autoPlay(true).singleLoad(false).fix(new SimpleImageFixCallback() {
                     @Override
                     public void onInit(ImageHolder holder) {
-                        if (holder.isGif()) {
+                        if (holder.isGif) {
                             holder.setAutoFix(false);
                         }
                     }

@@ -75,10 +75,11 @@ class MathTagHandler(
                     ?.replace("\"","")
                 if (clazz == "kfformula") {
                     if (attributes.getValue("data-latex") != null) {
-                        ssb.append(splitMathTex2)
+                       /* ssb.append(splitMathTex2)
                         val latex = attributes.getValue("data-latex")
                         ssb.append(" $latex ")
-                        return true
+                        return true*/
+                        return false
                     }
                 }
                 return false

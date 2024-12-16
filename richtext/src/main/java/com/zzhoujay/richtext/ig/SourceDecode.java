@@ -123,8 +123,8 @@ abstract class SourceDecode<T> {
     };
 
     ImageWrapper decode(ImageHolder holder, T t, BitmapFactory.Options options) {
-        if (holder.isAutoPlay() && (holder.isGif() || isGif(t, options))) {
-            holder.setIsGif(true);
+        if (holder.isAutoPlay() && (holder.isGif || isGif(t, options))) {
+            holder.isGif = true;
             return decodeAsGif(t, options);
         } else {
             return decodeAsBitmap(t, options);

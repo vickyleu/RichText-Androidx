@@ -27,6 +27,8 @@ fun convertImageSrc(input: String): String {
     val regex = """src="data:image/\w+?;base64,(.*?)"""".toRegex()
     return regex.replace(input) { matchResult ->
         val base64Data = matchResult.groupValues[1]
-        """src="^data:image/png;base64,$base64Data""""
+        """src="^data:image/png;base64,$base64Data"""".apply {
+            println("convertImageSrc: $this")
+        }
     }
 }

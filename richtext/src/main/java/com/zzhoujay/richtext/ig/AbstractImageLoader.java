@@ -50,7 +50,7 @@ abstract class AbstractImageLoader<T> implements ImageLoader {
 
     @Override
     public void onLoading() {
-        log(TAG, "onLoading > " + holder.getSource());
+        log(TAG, "onLoading > " + this.holder.getSource()+",  hashCode="+this.holder.hashCode() +", SimpleName="+this.getClass().getSimpleName() +", this="+this.hashCode());
         if (activityDestroyed()) {
             return;
         }
@@ -58,8 +58,8 @@ abstract class AbstractImageLoader<T> implements ImageLoader {
         if (drawableWrapper == null) {
             return;
         }
-        holder.setImageState(ImageHolder.ImageState.LOADING);
-        Drawable placeHolder = holder.getPlaceHolder();
+        holder.imageState = ImageHolder.ImageState.LOADING;
+        Drawable placeHolder = holder.placeHolder;
         Rect bounds = placeHolder.getBounds();
         drawableWrapper.setDrawable(placeHolder);
 
@@ -70,8 +70,8 @@ abstract class AbstractImageLoader<T> implements ImageLoader {
         if (drawableWrapper.isHasCache()) {
             placeHolder.setBounds(drawableWrapper.getBounds());
         } else {
-            drawableWrapper.setScaleType(holder.getScaleType());
-            drawableWrapper.setBorderHolder(holder.getBorderHolder());
+            drawableWrapper.setScaleType(holder.scaleType);
+            drawableWrapper.setBorderHolder(holder.borderHolder);
             drawableWrapper.setBounds(0, 0, getHolderWidth(bounds.width()), getHolderHeight(bounds.height()));
 
             drawableWrapper.calculate();
@@ -83,8 +83,9 @@ abstract class AbstractImageLoader<T> implements ImageLoader {
 
     @Override
     public int onSizeReady(int width, int height) {
-        log(TAG, "onSizeReady > " + "width = " + width + " , height = " + height + " , " + holder.getSource());
-        holder.setImageState(ImageHolder.ImageState.SIZE_READY);
+        log(TAG, "onSizeReady > " + "width = " + width + " , height = " + height + " , " + this.holder.getSource()+",  hashCode="+this.holder.hashCode() +
+                ", SimpleName="+this.getClass().getSimpleName() +", this="+this.hashCode());
+        holder.imageState = ImageHolder.ImageState.SIZE_READY;
         ImageHolder.SizeHolder sizeHolder = new ImageHolder.SizeHolder(width, height);
         if (config.imageFixCallback != null) {
             config.imageFixCallback.onSizeReady(holder, width, height, sizeHolder);
@@ -109,8 +110,8 @@ abstract class AbstractImageLoader<T> implements ImageLoader {
         if (drawableWrapper == null) {
             return;
         }
-        holder.setImageState(ImageHolder.ImageState.FAILED);
-        Drawable errorImage = holder.getErrorImage();
+        holder.imageState = ImageHolder.ImageState.FAILED;
+        Drawable errorImage = holder.errorImage;
         Rect bounds = errorImage.getBounds();
         drawableWrapper.setDrawable(errorImage);
 
@@ -121,9 +122,9 @@ abstract class AbstractImageLoader<T> implements ImageLoader {
         if (drawableWrapper.isHasCache()) {
             errorImage.setBounds(drawableWrapper.getBounds());
         } else {
-            drawableWrapper.setScaleType(holder.getScaleType());
+            drawableWrapper.setScaleType(holder.scaleType);
             drawableWrapper.setBounds(0, 0, getHolderWidth(bounds.width()), getHolderHeight(bounds.height()));
-            drawableWrapper.setBorderHolder(holder.getBorderHolder());
+            drawableWrapper.setBorderHolder(holder.borderHolder);
             drawableWrapper.calculate();
         }
 
@@ -133,7 +134,9 @@ abstract class AbstractImageLoader<T> implements ImageLoader {
 
     @Override
     public void onResourceReady(ImageWrapper imageWrapper) {
-        log(TAG, "onResourceReady > " + holder.getSource());
+        log(TAG, "onResourceReady > " + this.holder.getSource() + "," +
+                " width="+this.holder.width+", height="+this.holder.height+",  hashCode="+this.holder.hashCode() +", SimpleName="+this.getClass().getSimpleName() +
+                ", this="+this.hashCode());
         if (imageWrapper == null) {
             onFailure(new ImageDecodeException());
             return;
@@ -147,7 +150,7 @@ abstract class AbstractImageLoader<T> implements ImageLoader {
             return;
         }
         imageWrapperWeakReference = new WeakReference<>(imageWrapper);
-        holder.setImageState(ImageHolder.ImageState.READY);
+        holder.imageState = ImageHolder.ImageState.READY;
 
         Drawable drawable = imageWrapper.getDrawable(textView.getResources());
         drawableWrapper.setDrawable(drawable);
@@ -160,9 +163,9 @@ abstract class AbstractImageLoader<T> implements ImageLoader {
         if (drawableWrapper.isHasCache()) {
             drawable.setBounds(drawableWrapper.getBounds());
         } else {
-            drawableWrapper.setScaleType(this.holder.getScaleType());
+            drawableWrapper.setScaleType(this.holder.scaleType);
             drawableWrapper.setBounds(0, 0, getHolderWidth(imageWidth), getHolderHeight(imageHeight));
-            drawableWrapper.setBorderHolder(holder.getBorderHolder());
+            drawableWrapper.setBorderHolder(holder.borderHolder);
 
             drawableWrapper.calculate();
         }
@@ -273,7 +276,7 @@ abstract class AbstractImageLoader<T> implements ImageLoader {
     }
 
     private int getHolderWidth(int width) {
-        int w = holder.getWidth();
+        int w = holder.width;
         if (w == ImageHolder.MATCH_PARENT) {
             w = getRealWidth();
         } else if (w == ImageHolder.WRAP_CONTENT) {
@@ -286,7 +289,7 @@ abstract class AbstractImageLoader<T> implements ImageLoader {
     }
 
     private int getHolderHeight(int height) {
-        int h = holder.getHeight();
+        int h = holder.height;
         if (h == ImageHolder.MATCH_PARENT) {
             h = getRealHeight();
         } else if (h == ImageHolder.WRAP_CONTENT) {

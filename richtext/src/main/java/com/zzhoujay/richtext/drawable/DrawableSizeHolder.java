@@ -31,9 +31,9 @@ public class DrawableSizeHolder {
     DrawableSizeHolder(ImageHolder holder) {
         this(
                 holder.getKey(),
-                new RectF(0, 0, holder.getWidth(), holder.getHeight()),
-                holder.getScaleType(),
-                new DrawableBorderHolder(holder.getBorderHolder())
+                new RectF(0, 0, holder.width, holder.height),
+                holder.scaleType,
+                new DrawableBorderHolder(holder.borderHolder)
         );
     }
 

@@ -61,7 +61,7 @@ val runcdep by tasks.registering(Exec::class) {
     commandLine("./cdep/cdep")
 }
 
-tasks.getByName("preBuild").dependsOn(runcdep)
+//tasks.getByName("preBuild").dependsOn(runcdep)
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))

@@ -66,8 +66,9 @@ fun RichTextPlatformView(
 
             val imageFix = object : ImageFixCallback {
                 override fun onInit(imageHolder: ImageHolder?) {
+                    println("onInit: ${imageHolder?.getSource()}")
                     imageHolder?.apply {
-                        this.source = convertImageSrc(this.source)
+                        this.setSource(convertImageSrc(this.getSource()))
                     }
                 }
 
@@ -87,9 +88,9 @@ fun RichTextPlatformView(
                     imageHolder?.apply {
                         if (sizeHolder != null) {
                             val max = maxWidth.roundToPx()
-                            val originalWidth = sizeHolder.width
-                            val originalHeight = sizeHolder.height
-                            if (originalWidth > max) {
+                            val originalWidth = sizeHolder.getWidth()
+                            val originalHeight = sizeHolder.getHeight()
+                            if (max in 1..<originalWidth) {
                                 // 计算等比例缩小后的高度
                                 val newHeight = (originalHeight * max) / originalWidth
                                 this.width = max
