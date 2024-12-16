@@ -21,9 +21,12 @@ import com.zzhoujay.richtext.mathdisplay.render.MTTypesetter
 import com.zzhoujay.richtext.spans.TableSpan.Companion
 import kotlin.io.path.Path
 import kotlin.math.absoluteValue
+import kotlin.math.max
+import kotlin.math.min
 
 class MTMathSpan : ReplacementSpan() {
-    private var displayList: MTMathListDisplay? = null
+    private var displayList: List<MTMathListDisplay>? = mutableListOf<MTMathListDisplay>()
+
     private var _mathList: MTMathList? = null
 
     /**
@@ -57,6 +60,9 @@ class MTMathSpan : ReplacementSpan() {
                 if(lastError.errorcode != MTParseErrors.ErrorNone) {
                     this._mathList = null
                 }else{
+                    println("lastError.errordesc:: value::${it?.atoms?.joinToString { 
+                        "${it.toLatexString()}"
+                    }}")
                     this._mathList = it
                 }
             }
@@ -143,7 +149,10 @@ class MTMathSpan : ReplacementSpan() {
             field = value
             val dl = displayList
             if (dl != null) {
-                dl.textColor = value
+                dl.forEach{
+                    it.textColor = value
+                }
+//                dl.textColor = value
             }
 //            invalidate()
         }
@@ -239,13 +248,21 @@ class MTMathSpan : ReplacementSpan() {
         val size =getMeasuredSize()
         fm?.let {
             var dl = displayList
-            val ml = this._mathList
-            if (ml != null && dl == null) {
+            val ml: MTMathList? = this._mathList
+            if (ml != null && (dl == null||dl.isEmpty() )) {
                 displayList = MTTypesetter.createLineForMathList(ml, font!!, currentStyle)
                 dl = displayList
             }
-            val ascent = dl?.ascent?:0f
-            val descent = dl?.descent?:0f
+            var ascent:Float=0f
+            var descent:Float=0f
+            dl?.forEach {
+                if(it.ascent.absoluteValue>ascent.absoluteValue){
+                    ascent =it.ascent
+                }
+                descent = max(descent,it.descent?:0f)
+            }
+//            val ascent: Float = dl?.ascent?:0f
+//            val descent: Float = dl?.descent?:0f
             // 设置 FontMetricsInt 参数
             it.ascent = -(ascent.toInt().absoluteValue+10)
             it.descent = descent.toInt().absoluteValue+10
@@ -267,8 +284,18 @@ class MTMathSpan : ReplacementSpan() {
         var height = 0.0f
         var width = 0.0f
         if (dl != null) {
-            height = dl.ascent + dl.descent
-            width = dl.width
+            var ascent:Float=0f
+            var descent:Float=0f
+            var dwidth:Float=0f
+            dl.forEach {
+                if(it.ascent.absoluteValue>ascent.absoluteValue){
+                    ascent =it.ascent
+                }
+                descent = max(descent,it.descent?:0f)
+                dwidth = max(dwidth,it.width?:0f)
+            }
+            height = ascent + descent
+            width = dwidth
         }
         val r = errorBounds()
         height = maxOf(height, r.height().toFloat())
@@ -296,21 +323,26 @@ class MTMathSpan : ReplacementSpan() {
         val width = size.width
         val height = size.height
         var dl = displayList
-        val ml = this._mathList
+        val ml: MTMathList? = this._mathList
         if (ml != null && dl == null) {
             displayList = MTTypesetter.createLineForMathList(ml, font!!, currentStyle)
             dl = displayList
         }
         if (dl != null) {
-            dl.textColor = this.textColor
-            // Determine x position based on alignment
+            dl.forEach {
+                it.textColor = this.textColor
+                // Determine x position based on alignment
 
-            dl.position.x =0f//textX.toFloat()
-            dl.position.y =0f// textY
+                it.position.x =0f//textX.toFloat()
+                it.position.y =0f// textY
+            }
+
             canvas.save()
             canvas.translate(x, y.toFloat())
             canvas.scale(1.0f, -1.0f)
-            dl.draw(canvas)
+            dl.forEach {
+                it.draw(canvas)
+            }
             canvas.restore()
         }
 

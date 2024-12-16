@@ -193,11 +193,16 @@ class MTMathListBuilder(str: String) {
                     }
                 }
                 else -> {
+
+                    /*println("lastError.errordesc:: value::${it?.atoms?.joinToString {
+                        "${it.toLatexString()}"
+                    }}")*/
                     if (spacesAllowed && ch == ' ') {
                         // If spaces are allowed then spaces do not need escaping with a \ before being used.
                         atom = MTMathAtom.atomForLatexSymbolName(" ")
                     } else {
                         atom = MTMathAtom.atomForCharacter(ch)
+                        println("ch:: $ch  atom::${atom}")
                         if (atom == null) {
                             // Not a recognized character
                             continue@outerloop

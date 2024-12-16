@@ -87,15 +87,7 @@ class MathTagHandler(
         }
     }
     private fun convertToLatex(input: String): String {
-        return if(input.contains("backslash ")){
-            input
-                .replace("\\backslash ", "\\")
-//                .replace("rightarrow ", " > ")
-//                .replace("leftarrow ", " < ")
-                .replace("\\{", "{")
-                .replace("\\}", "}")
-                .replace("\\~", "~")
-        }else input
+        return input.replace("\\\\", "\\")
 
     }
     override fun endTag(
@@ -112,7 +104,9 @@ class MathTagHandler(
 //                            val oringLatex = "\\frac12rt {{b}^{2} {2a}>\\frac {dy} {dx}"
                             ssb.replace(ssb.indexOf(splitMathTex), ssb.length, latex)
                             val span = MTMathSpan().apply {
-                                this.latex = latex
+                                this.latex = latex.apply {
+                                    println("latex===>>>==${this}==")
+                                }
                                 this.textColor = Color.BLACK
                                 val fSize =
                                     context.resources.displayMetrics.scaledDensity * textSizeSp
@@ -155,7 +149,9 @@ class MathTagHandler(
                             val latex = convertToLatex(this)
                             ssb.replace(ssb.indexOf(splitMathTex2), ssb.length, latex)
                             val span = MTMathSpan().apply {
-                                this.latex = latex
+                                this.latex = latex.apply {
+                                    println("img latex===>>>==${this}==")
+                                }
                                 this.textColor = Color.BLACK
                                 val fSize =
                                     context.resources.displayMetrics.scaledDensity * textSizeSp

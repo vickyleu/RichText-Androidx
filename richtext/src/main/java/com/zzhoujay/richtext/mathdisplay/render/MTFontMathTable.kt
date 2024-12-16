@@ -53,11 +53,11 @@ class BoundingBox() {
     }
 }
 
-class MTFontMathTable(val font: MTFont, var istreamotf: InputStream?) {
-    var unitsPerEm: Int = 1
+class MTFontMathTable(val font: MTFont, private var inputStreamFontOtf: InputStream?) {
+    private var unitsPerEm: Int = 1
     var fontSize: Float = 0f
-    lateinit var freeface: Face
-    lateinit var freeTypeMathTable: MTFreeTypeMathTable
+    private lateinit var freeface: Face
+    private lateinit var freeTypeMathTable: MTFreeTypeMathTable
 
     /*
     lateinit var kConstantsTable: SortedMap<String, NSObject>
@@ -70,12 +70,12 @@ class MTFontMathTable(val font: MTFont, var istreamotf: InputStream?) {
 
     init {
         fontSize = font.fontSize
-        var barray: ByteArray? = null
+        var bArray: ByteArray? = null
 
-        if (istreamotf != null) {
-            istreamotf.use {
+        if (inputStreamFontOtf != null) {
+            inputStreamFontOtf.use {
                 try {
-                    barray = it!!.readBytes()
+                    bArray = it!!.readBytes()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 } finally {
@@ -92,7 +92,7 @@ class MTFontMathTable(val font: MTFont, var istreamotf: InputStream?) {
             val library = FreeType.newLibrary()
                     ?: throw  MathDisplayException("Error initializing FreeType.")
 
-            freeface = library.newFace(barray, 0)
+            freeface = library.newFace(bArray, 0)
             checkFontSize()
             unitsPerEm = freeface.getUnitsPerEM()
 

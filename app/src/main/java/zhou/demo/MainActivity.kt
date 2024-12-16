@@ -82,26 +82,31 @@ class MainActivity : AppCompatActivity() {
                 """
             .trimIndent().trim { it <= ' ' }*/
 
+//         val text = """
+//            你好啊
+//            <p><img class="kfformula" src="" data-latex="\left ( {45} \right )\left [ {\propto } \right ]\left | {\downarrow } \right |\varnothing"/></p>
+//            <p><img class="kfformula" src="" data-latex="\sin {20}°\cos {25}，\tan {63}，\csc {56}、\sec {75}\left \{  {/\cot {20}0} \right \} \sin {\theta }\cos {2x}\tan {\theta }=\frac {\sin {\theta }} {\cos {\theta }}"/></p>
+//            <p><img class="kfformula" src="" data-latex="\varnothing"/></p>
+//            <p><img class="kfformula" src="" data-latex="\blacksquare \beth \aleph \vdots \cdot \ast \neg -+\because"/></p>
+//            <p><img class="kfformula" src="" data-latex="\% \circ \exists \nexists \in \ni \gets \uparrow \to \downarrow \leftrightarrow \therefore"/></p>
+//            <p><img class="kfformula" src="" data-latex="\geq \mp \cong \equiv \propto \approx \forall \partial \surd \surd \cup \cap \varnothing"/></p>
+//            <p><img class="kfformula" src="" data-latex="\pm \infty =\sim \times \div !<\ll >\gg \leq"/></p>
+//            <p><img class="kfformula" src="" data-latex="\geq \mp \cong \equiv \propto \approx \forall \partial \surd \cup \cap \varnothing"/></p>
+//            <p><img class="kfformula" src="" data-latex="\pm \infty =\sim \times \div !<\ll >\gg \leq"/></p>
+//            <p><img class="kfformula" src="" data-latex="\% \circ \exists \nexists \in \ni \gets \uparrow \to \to \downarrow \leftrightarrow \therefore \because +-\neg \ast \cdot \vdots \aleph \beth \blacksquare"/></p>
+//            <p><img class="kfformula" src="" data-latex="\frac {1} {2}{3/4}\frac {d5y} {d6x}\frac {\Delta 7y} {\Delta 8x}\frac {\delta y9} {\delta x10}\frac {\pi } {2}11"/></p>
+//            <p><img class="kfformula" src="" data-latex="{1}^{2}{3}_{4}{5}^{6}_{7}{^{8}_{9}10}"/></p>
+//            <p><img class="kfformula" src="" data-latex="\sqrt {4}\sqrt[{5}] {6}\sqrt[{2}] {7}\sqrt[{3}] {8}\sqrt[{35}] {9}"/></p>
+//            <p><img class="kfformula" src="" data-latex="\int  {5\int ^{7}_{9} {8}}\iint  {10}\iint ^{11}_{13} {12}\iiint  {14}\iiint ^{15}_{17} {16}"/></p>
+//            <p><img class="kfformula" src="" data-latex="\sum  {1}\sum ^{4}_{\placeholder } {5}\sum _{4} {5}"/></p>
+//            <p><img class="kfformula" src="" data-latex="\left ( {45} \right )\left [ {\propto } \right ]\left | {\downarrow } \right |\varnothing"/></p>
+//            <p><img class="kfformula" src="" data-latex="\sin {20}°\cos {25}，\tan {63}，\csc {56}、\sec {75}\left \{  {/\cot {20}0} \right \} \sin {\theta }\cos {2x}\tan {\theta }=\frac {\sin {\theta }} {\cos {\theta }}"/></p>
+//        """.trimIndent()
          val text = """
             你好啊
-            <p><img class="kfformula" src="" data-latex="\left ( {45} \right )\left [ {\propto } \right ]\left | {\downarrow } \right |\varnothing"/></p>
             <p><img class="kfformula" src="" data-latex="\sin {20}°\cos {25}，\tan {63}，\csc {56}、\sec {75}\left \{  {/\cot {20}0} \right \} \sin {\theta }\cos {2x}\tan {\theta }=\frac {\sin {\theta }} {\cos {\theta }}"/></p>
-            <p><img class="kfformula" src="" data-latex="\varnothing"/></p>
-            <p><img class="kfformula" src="" data-latex="\blacksquare \beth \aleph \vdots \cdot \ast \neg -+\because"/></p>
-            <p><img class="kfformula" src="" data-latex="\% \circ \exists \nexists \in \ni \gets \uparrow \to \downarrow \leftrightarrow \therefore"/></p>
-            <p><img class="kfformula" src="" data-latex="\geq \mp \cong \equiv \propto \approx \forall \partial \surd \surd \cup \cap \varnothing"/></p>
-            <p><img class="kfformula" src="" data-latex="\pm \infty =\sim \times \div !<\ll >\gg \leq"/></p>
-            <p><img class="kfformula" src="" data-latex="\geq \mp \cong \equiv \propto \approx \forall \partial \surd \cup \cap \varnothing"/></p>
-            <p><img class="kfformula" src="" data-latex="\pm \infty =\sim \times \div !<\ll >\gg \leq"/></p>
-            <p><img class="kfformula" src="" data-latex="\% \circ \exists \nexists \in \ni \gets \uparrow \to \to \downarrow \leftrightarrow \therefore \because +-\neg \ast \cdot \vdots \aleph \beth \blacksquare"/></p>
-            <p><img class="kfformula" src="" data-latex="\frac {1} {2}{3/4}\frac {d5y} {d6x}\frac {\Delta 7y} {\Delta 8x}\frac {\delta y9} {\delta x10}\frac {\pi } {2}11"/></p>
-            <p><img class="kfformula" src="" data-latex="{1}^{2}{3}_{4}{5}^{6}_{7}{^{8}_{9}10}"/></p>
-            <p><img class="kfformula" src="" data-latex="\sqrt {4}\sqrt[{5}] {6}\sqrt[{2}] {7}\sqrt[{3}] {8}\sqrt[{35}] {9}"/></p>
-            <p><img class="kfformula" src="" data-latex="\int  {5\int ^{7}_{9} {8}}\iint  {10}\iint ^{11}_{13} {12}\iiint  {14}\iiint ^{15}_{17} {16}"/></p>
-            <p><img class="kfformula" src="" data-latex="\sum  {1}\sum ^{4}_{\placeholder } {5}\sum _{4} {5}"/></p>
-            <p><img class="kfformula" src="" data-latex="\left ( {45} \right )\left [ {\propto } \right ]\left | {\downarrow } \right |\varnothing"/></p>
-            <p><img class="kfformula" src="" data-latex="\sin {20}°\cos {25}，\tan {63}，\csc {56}、\sec {75}\left \{  {/\cot {20}0} \right \} \sin {\theta }\cos {2x}\tan {\theta }=\frac {\sin {\theta }} {\cos {\theta }}"/></p>
-        """.trimIndent()
+            你好啊
+ """.trimIndent()
 
         val imageFix = object : ImageFixCallback {
             fun convertImageSrc(input: String): String {

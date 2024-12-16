@@ -326,10 +326,30 @@ open class MTMathAtom(var type: MTMathAtomType, var nucleus: String) {
         fun atomForCharacter(ch: Char): MTMathAtom? {
             val chStr = Character.toString(ch)
 
-
+            println("ch $ch chStr $chStr  ch.toInt() ${ch.toInt()} ${0x21}")
             if (ch.toInt() < 0x21 || ch.toInt() > 0x7E) {
                 // skip non ascii characters and spaces
-                return null
+//                return null
+                return when(ch) {
+                    '，' -> {
+                        atomWithType(MTMathAtomType.KMTMathAtomBinaryOperator, ",")
+                    }
+
+                    '、' -> {
+                        atomWithType(MTMathAtomType.KMTMathAtomBinaryOperator, "\u22C5")
+                    }
+                    '°' -> {
+                        atomWithType(MTMathAtomType.KMTMathAtomBinaryOperator, "\u00B0")
+                    }
+                    else -> {
+                        if(chStr.replace(" ","").isEmpty()){
+                            null
+                        }else{
+                            atomWithType(MTMathAtomType.KMTMathAtomBinaryOperator, chStr)
+                        }
+                    }
+                }
+//                return atomWithType(MTMathAtomType.KMTMathAtomOrdinary, chStr)
             } else if (ch == '$' || ch == '%' || ch == '#' || ch == '&' || ch == '~' || ch == '\'') {
                 // These are latex control characters that have special meanings. We don't support them.
                 return null

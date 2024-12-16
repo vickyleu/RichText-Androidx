@@ -146,7 +146,13 @@ class MTCTLineDisplay(val str: String, range: NSRange, val font: MTFont, val ato
         canvas.scale(1.0f, -1.0f)
         var x = 0.0f
         for (i in 0 until num) {
-            drawer.drawGlyph(canvas, textPaint, glyphs[i], x, 0.0f)
+            drawer.drawGlyph(
+                canvas = canvas,
+                p = textPaint,
+                gid = glyphs[i],
+                x = x,
+                y = 0.0f
+            )
             x += advances[i]
         }
         textPaint.setColor(Color.RED)
@@ -444,7 +450,13 @@ class MTGlyphDisplay(val glyph: CGGlyph, range: NSRange, val myfont: MTFont) :
         canvas.save()
         canvas.translate(position.x, position.y - this.shiftDown)
         canvas.scale(1.0f, -1.0f)
-        drawer.drawGlyph(canvas, textPaint, glyph.gid, 0.0f, 0.0f)
+        drawer.drawGlyph(
+            canvas = canvas,
+            p = textPaint,
+            gid = glyph.gid,
+            x = 0.0f,
+            y = 0.0f
+        )
         canvas.restore()
     }
 
@@ -492,7 +504,13 @@ class MTGlyphConstructionDisplay(val glyphs: MutableList<Int>, val offsets: Muta
             canvas.save()
             canvas.translate(0f, offsets[i])
             canvas.scale(1.0f, -1.0f)
-            drawer.drawGlyph(canvas, textPaint, glyphs[i], 0.0f, 0.0f)
+            drawer.drawGlyph(
+                canvas = canvas,
+                p = textPaint,
+                gid = glyphs[i],
+                x = 0.0f,
+                y = 0.0f
+            )
 
             //canvas.drawText(textstr, 0.0f, 0.0f, textPaint)
             canvas.restore()

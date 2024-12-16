@@ -32,11 +32,19 @@ class MTDrawFreeType(val mathfont: MTFontMathTable) {
                     }
                 } else {
                     val bitmap = Bitmap.createBitmap(plainbitmap.width, plainbitmap.rows, Bitmap.Config.ALPHA_8)
-                    bitmap.copyPixelsFromBuffer(plainbitmap.buffer)
-                    val metrics = gslot.metrics
-                    val offx = metrics.horiBearingX / 64.0f  // 26.6 fixed point integer from freetype
-                    val offy = metrics.horiBearingY / 64.0f
-                    canvas.drawBitmap(bitmap, x + offx, y - offy, p)
+                    try {
+                        bitmap.copyPixelsFromBuffer(plainbitmap.buffer)
+                    }catch (e:Exception){
+                        e.printStackTrace()
+                    }
+                    try {
+                        val metrics = gslot.metrics
+                        val offx = metrics.horiBearingX / 64.0f  // 26.6 fixed point integer from freetype
+                        val offy = metrics.horiBearingY / 64.0f
+                        canvas.drawBitmap(bitmap, x + offx, y - offy, p)
+                    }catch (e:Exception){
+                        e.printStackTrace()
+                    }
                 }
             }
         }
