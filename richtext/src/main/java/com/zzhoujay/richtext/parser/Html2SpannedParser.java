@@ -27,7 +27,13 @@ public class Html2SpannedParser implements SpannedParser {
         Method fromHtml = null;
         try {
             Class  htmlClass = com.zzhoujay.html.Html.class;
-            fromHtml = htmlClass.getMethod("fromHtml", String.class,Integer.class, Html.ImageGetter.class,  Html.TagHandler.class,List.class);
+            fromHtml = htmlClass.getMethod("fromHtml",
+                    String.class,
+                    int.class,
+                    Html.ImageGetter.class,
+                    Html.TagHandler.class,
+                    List.class
+            );
 //            fromHtml = Class.forName(Z_HTML_CLASS_NAME).getMethod("fromHtml", String.class, Html.ImageGetter.class,  Html.TagHandler.class,List.class);
         } catch (Exception ignore) {
             ignore.printStackTrace();
