@@ -48,7 +48,7 @@ public class Html2SpannedParser implements SpannedParser {
     public Spanned parse(String source) {
         if (Z_FROM_HTML_METHOD != null) {
             try {
-                return (Spanned) Z_FROM_HTML_METHOD.invoke(null, source,255, null, tagHandler,customTagHandlers);
+                return (Spanned) Z_FROM_HTML_METHOD.invoke(null, source,256, null, tagHandler,customTagHandlers);
             } catch (Exception e) {
                 Log.d(TAG, "Z_FROM_HTML_METHOD invoke failure", e);
             }
