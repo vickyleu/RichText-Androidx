@@ -56,7 +56,7 @@ dependencyResolutionManagement {
             extra["githubToken"] = properties["github.token"] as? String
                 ?: environment["GITHUB_TOKEN"] ?: ""
 
-            url = uri("https://maven.pkg.github.com/vickyleu/abcdefghijk")
+            url = uri("https://maven.pkg.github.com/vickyleu/abcdefghijkii")
             credentials {
                 username = "vickyleu"
                 password = extra["githubToken"]?.toString()
