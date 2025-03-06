@@ -56,7 +56,7 @@ dependencyResolutionManagement {
             extra["githubToken"] = properties["github.token"] as? String
                 ?: environment["GITHUB_TOKEN"] ?: ""
 
-            url = uri("https://maven.pkg.github.com/vickyleu/abc")
+            url = uri("https://maven.pkg.github.com/vickyleu/abcdefghijk")
             credentials {
                 username = "vickyleu"
                 password = extra["githubToken"]?.toString()
@@ -65,7 +65,7 @@ dependencyResolutionManagement {
                 excludeGroupByRegex("com.finogeeks.*")
                 excludeGroupByRegex("org.jogamp.*")
                 excludeGroupByRegex("org.jetbrains.compose.*")
-                excludeGroupByRegex("(?!com|cn).github.(?!vickyleu).*")
+//                excludeGroupByRegex("(?!com|cn).github.(?!vickyleu).*")
             }
         }
     }
