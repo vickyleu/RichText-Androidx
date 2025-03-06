@@ -27,7 +27,7 @@ public class Html2SpannedParser implements SpannedParser {
         Method fromHtml = null;
         try {
             Class  htmlClass = com.zzhoujay.html.Html.class;
-            fromHtml = htmlClass.getMethod("fromHtml", String.class, Html.ImageGetter.class,  Html.TagHandler.class,List.class);
+            fromHtml = htmlClass.getMethod("fromHtml", String.class,Integer.class, Html.ImageGetter.class,  Html.TagHandler.class,List.class);
 //            fromHtml = Class.forName(Z_HTML_CLASS_NAME).getMethod("fromHtml", String.class, Html.ImageGetter.class,  Html.TagHandler.class,List.class);
         } catch (Exception ignore) {
             ignore.printStackTrace();
@@ -48,7 +48,7 @@ public class Html2SpannedParser implements SpannedParser {
     public Spanned parse(String source) {
         if (Z_FROM_HTML_METHOD != null) {
             try {
-                return (Spanned) Z_FROM_HTML_METHOD.invoke(null, source, null, tagHandler,customTagHandlers);
+                return (Spanned) Z_FROM_HTML_METHOD.invoke(null, source,255, null, tagHandler,customTagHandlers);
             } catch (Exception e) {
                 Log.d(TAG, "Z_FROM_HTML_METHOD invoke failure", e);
             }
