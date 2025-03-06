@@ -1,5 +1,7 @@
 package com.zzhoujay.richtext;
 
+import static com.zzhoujay.html.Html.FROM_HTML_MODE_LEGACY;
+
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -40,6 +42,8 @@ public final class RichTextConfig {
 
     public static final String OK_HTTP_GLOBAL_ID = "com.zzhoujay.okhttpimagedownloader.OkHttpImageDownloader";
     public final String source; // 源文本
+    public final int flags;
+
     public final RichType richType; // 富文本类型，默认HTML
     public final boolean autoFix; // 图片自动修复，默认true
     public final boolean resetSize; // 是否放弃使用img标签中的尺寸属性，默认false
@@ -89,7 +93,7 @@ public final class RichTextConfig {
 
 
     private RichTextConfig(RichTextConfigBuild config) {
-        this(config.source, config.richType, config.autoFix, config.resetSize, config.cacheType, config.imageFixCallback,
+        this(config.source, config.flags, config.richType, config.autoFix, config.resetSize, config.cacheType, config.imageFixCallback,
                 config.linkFixCallback, config.noImage, config.clickable, config.onImageClickListener,
                 config.onUrlClickListener, config.onImageLongClickListener, config.onUrlLongClickListener,
                 config.imageGetter, config.callback, config.autoPlay, config.scaleType, config.width,
@@ -97,7 +101,7 @@ public final class RichTextConfig {
                 config.errorImageDrawableGetter, config.customTagHandlers);
     }
 
-    private RichTextConfig(String source, RichType richType, boolean autoFix, boolean resetSize, CacheType cacheType,
+    private RichTextConfig(String source, int flags,RichType richType, boolean autoFix, boolean resetSize, CacheType cacheType,
                            ImageFixCallback imageFixCallback, LinkFixCallback linkFixCallback, boolean noImage,
                            int clickable, OnImageClickListener onImageClickListener, OnUrlClickListener onUrlClickListener,
                            OnImageLongClickListener onImageLongClickListener, OnUrlLongClickListener onUrlLongClickListener,
@@ -106,6 +110,7 @@ public final class RichTextConfig {
                            ImageDownloader imageDownloader, DrawableGetter placeHolderDrawableGetter, DrawableGetter errorImageDrawableGetter,
                            List<CustomTagHandler> customTagHandlers) {
         this.source = source;
+        this.flags = flags;
         this.richType = richType;
         this.autoFix = autoFix;
         this.resetSize = resetSize;
@@ -143,6 +148,7 @@ public final class RichTextConfig {
 
     public int key() {
         int result = source.hashCode();
+        result = 31 * result + flags;
         result = 31 * result + richType.hashCode();
         result = 31 * result + (autoFix ? 1 : 0);
         result = 31 * result + (resetSize ? 1 : 0);
@@ -164,6 +170,7 @@ public final class RichTextConfig {
         final String source;
         RichType richType;
         boolean autoFix;
+        int flags;
         boolean resetSize;
         CacheType cacheType;
         ImageFixCallback imageFixCallback;
@@ -188,6 +195,7 @@ public final class RichTextConfig {
         DrawableGetter placeHolderDrawableGetter, errorImageDrawableGetter;
 
         RichTextConfigBuild(String source, RichType richType) {
+            this.flags = FROM_HTML_MODE_LEGACY;
             this.source = source;
             this.richType = richType;
             this.autoFix = true;
@@ -368,6 +376,11 @@ public final class RichTextConfig {
          */
         public RichTextConfigBuild autoPlay(boolean autoPlay) {
             this.autoPlay = autoPlay;
+            return this;
+        }
+
+        public RichTextConfigBuild flags(int flags) {
+            this.flags = flags;
             return this;
         }
 

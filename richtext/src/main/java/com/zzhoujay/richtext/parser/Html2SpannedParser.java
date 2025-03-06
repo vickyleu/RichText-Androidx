@@ -1,5 +1,7 @@
 package com.zzhoujay.richtext.parser;
 
+import static com.zzhoujay.html.Html.FROM_HTML_MODE_LEGACY;
+
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.text.Html;
@@ -42,10 +44,15 @@ public class Html2SpannedParser implements SpannedParser {
     }
 
     private Html.TagHandler tagHandler;
+    private int flags;
     private List<CustomTagHandler> customTagHandlers;
 
-    public Html2SpannedParser(Html.TagHandler tagHandler, List<CustomTagHandler> customTagHandlers) {
+    public Html2SpannedParser(Html.TagHandler tagHandler,List<CustomTagHandler> customTagHandlers) {
+        this(tagHandler,FROM_HTML_MODE_LEGACY,customTagHandlers);
+    }
+    public Html2SpannedParser(Html.TagHandler tagHandler,int flags, List<CustomTagHandler> customTagHandlers) {
         this.tagHandler = tagHandler;
+        this.flags = flags;
         this.customTagHandlers = customTagHandlers;
     }
 
@@ -54,7 +61,7 @@ public class Html2SpannedParser implements SpannedParser {
     public Spanned parse(String source) {
         if (Z_FROM_HTML_METHOD != null) {
             try {
-                return (Spanned) Z_FROM_HTML_METHOD.invoke(null, source,256, null, tagHandler,customTagHandlers);
+                return (Spanned) Z_FROM_HTML_METHOD.invoke(null, source,flags, null, tagHandler,customTagHandlers);
             } catch (Exception e) {
                 Log.d(TAG, "Z_FROM_HTML_METHOD invoke failure", e);
             }
